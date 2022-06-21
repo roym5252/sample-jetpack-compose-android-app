@@ -4,11 +4,11 @@
 
 Your task is to create an Android App that will allow customers to see the range of dishwashers on sale at John Lewis. This app should be simple to use and work on both phones and tablets.
 
-You may choose to use the existing project or create your own.
-
 You should build the application in Kotlin.
 
 You are expected to provide adequate unit tests.
+
+Please fork this repo into your own GitLab namespace. (You will need a GitLab account.)
 
 ## Project
 
