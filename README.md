@@ -46,4 +46,3 @@ In the `/designs` folder you can find example designs of how the pages might loo
 - Works across phone and tablet.
 - Any assumptions, notes, instructions or improvement suggestions added to your README
 - We assess coding choices, how you've approaced the task and factors like accessibility, performance and security.
-- We do not expect you to spend more than 3 hours on this
