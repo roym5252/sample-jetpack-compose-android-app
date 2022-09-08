@@ -10,10 +10,6 @@ You are expected to provide adequate unit tests.
 
 Please fork this repo into your own GitLab namespace. (You will need a GitLab account.)
 
-## Project
-
-An example base project has been set up for you that uses Storyboards and has Unit and UI test schemes. You may choose to use this, or create your own.
-
 ## Product Grid
 
 On initial app launch the customer should be presented with a grid of dishwashers available for purchase at John Lewis.
