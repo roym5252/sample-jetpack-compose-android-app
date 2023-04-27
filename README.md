@@ -42,3 +42,10 @@ In the `/designs` folder you can find example designs of how the pages might loo
 - Works across phone and tablet.
 - Any assumptions, notes, instructions or improvement suggestions added to your README
 - We assess coding choices, how you've approaced the task and factors like accessibility, performance and security.
+
+
+## Getting Started
+
+Once you have a user setup in GitLab, please request access to the codebase by clicking the **“Request Access”** link at the top of the screen - under the project name.  Then you're free to fork the repo and have some fun with it.  Please however make sure your repo is private to keep it fair for the other candidates.
+
+When complete, please grant developer access to the jlp-test-review/candidate GitLab group and please let me know via email. One of our senior engineers will review your submission, and I’ll let you know the outcome.
