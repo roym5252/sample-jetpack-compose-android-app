@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "JLP Sample App"
 include(":app")
- 
+include(":core")
+include(":feature-product-list")
+include(":feature-product-detail")
