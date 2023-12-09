@@ -6,10 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.jlp.core.ui.theme.JLPSampleAppTheme
 import com.jlp.feature_product_list.ui.ProductListScreen
@@ -34,5 +32,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppContent(){
-    ProductListScreen()
+    ProductListScreen(listOf("Test"))
 }
