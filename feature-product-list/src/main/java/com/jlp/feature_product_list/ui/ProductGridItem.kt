@@ -79,7 +79,7 @@ fun ProductGridItem(product: Product) {
             )
 
             Text(
-                text = "100",
+                text = product.price,
                 Modifier.padding(top = 4.dp).fillMaxWidth().testTag("productPrice"), textAlign = TextAlign.Start,
                 style = TextStyle(
                     fontSize = 18.sp,
