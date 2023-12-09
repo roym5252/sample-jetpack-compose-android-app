@@ -18,6 +18,14 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.4"
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -27,6 +35,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -34,6 +43,8 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    testOptions.unitTests.isIncludeAndroidResources = true
 }
 
 dependencies {
@@ -57,6 +68,9 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    testImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation("androidx.compose.ui:ui-test-manifest")
+
     testImplementation(libs.mockwebserver)
     testImplementation (libs.robolectric)
     testImplementation(libs.junit)
@@ -64,6 +78,9 @@ dependencies {
     testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.compiler)
     testAnnotationProcessor(libs.hilt.compiler)
+    // Test rules and transitive dependencies:
+
+    implementation(project(":core"))
 }
 
 hilt {
@@ -73,3 +90,4 @@ hilt {
 kapt {
     correctErrorTypes = true
 }
+

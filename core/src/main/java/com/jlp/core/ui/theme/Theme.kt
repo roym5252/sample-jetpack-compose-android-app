@@ -1,4 +1,4 @@
-package com.jlp.sampleapp.ui.theme
+package com.jlp.core.ui.theme
 
 import android.app.Activity
 import android.os.Build

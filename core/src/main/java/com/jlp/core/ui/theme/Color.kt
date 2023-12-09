@@ -1,4 +1,4 @@
-package com.jlp.sampleapp.ui.theme
+package com.jlp.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
