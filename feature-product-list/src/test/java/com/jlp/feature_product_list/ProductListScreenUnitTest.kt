@@ -29,8 +29,13 @@ class ProductListScreenUnitTest {
     }
 
     @Test
-    fun `check screen title is shown`() {
+    fun `check title is shown`() {
         composeTestRule.onNodeWithTag("productListTitle").assertIsDisplayed()
+    }
+
+    @Test
+    fun `check subtitle is shown`() {
+        composeTestRule.onNodeWithTag("productListSubTitle").assertIsDisplayed()
     }
 
     @Test

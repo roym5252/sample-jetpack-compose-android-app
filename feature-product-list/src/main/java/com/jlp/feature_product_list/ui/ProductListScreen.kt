@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -13,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -35,15 +38,17 @@ fun ProductListScreen(@PreviewParameter(SampleProductProvider::class) products: 
         Column {
 
             Text(
-                text = "Dishwasher (114)",
+                text = "Dishwasher",
                 style = TextStyle(
                     fontSize = 30.sp,
                     fontWeight = FontWeight(800),
+                    fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
                     color = Color(0xFF000000),
 
                     ),
-                modifier = Modifier.testTag("productListTitle")
+                modifier = Modifier.testTag("productListTitle").padding(top = 16.dp, bottom = 16.dp, start = 8.dp,end=8.dp)
             )
+
 
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(200.dp),
