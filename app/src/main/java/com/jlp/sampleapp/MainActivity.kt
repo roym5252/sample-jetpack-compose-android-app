@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.jlp.core.model.Product
 import com.jlp.core.ui.theme.JLPSampleAppTheme
 import com.jlp.feature_product_list.ui.ProductListScreen
 
@@ -32,5 +33,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppContent(){
-    ProductListScreen(listOf("Test"))
+    ProductListScreen(listOf(Product("Product 1","ssd",""),
+        Product("Product 2","ssd","")))
 }
