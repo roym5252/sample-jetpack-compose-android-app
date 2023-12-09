@@ -3,6 +3,7 @@ package com.jlp.feature_product_list
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import com.jlp.core.model.Product
 import com.jlp.feature_product_list.ui.ProductListScreen
 import org.junit.Rule
@@ -52,6 +53,15 @@ class ProductListScreenUnitTest {
             ProductListScreen(listOf(Product("Product 1",null,"£100")))
         }
         composeTestRule.onNodeWithTag("productPrice").assertIsDisplayed()
+    }
+
+    @Test
+    fun `check product price is displaying with two decimal places on grid`() {
+        // Start the app
+        composeTestRule.setContent {
+            ProductListScreen(listOf(Product("Product 1",null,"£100.00")))
+        }
+        composeTestRule.onNodeWithText("£100.00").assertIsDisplayed()
     }
 
 }
