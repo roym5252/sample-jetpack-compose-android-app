@@ -37,18 +37,33 @@ fun ProductListScreen(@PreviewParameter(SampleProductProvider::class) products: 
 
         Column {
 
-            Text(
-                text = "Dishwasher",
-                style = TextStyle(
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight(800),
-                    fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
-                    color = Color(0xFF000000),
+            Column(Modifier.padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)) {
 
-                    ),
-                modifier = Modifier.testTag("productListTitle").padding(top = 16.dp, bottom = 16.dp, start = 8.dp,end=8.dp)
-            )
+                Text(
+                    text = "Dishwasher",
+                    style = TextStyle(
+                        fontSize = 30.sp,
+                        fontWeight = FontWeight(800),
+                        fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
+                        color = Color(0xFF000000),
 
+                        ),
+                    modifier = Modifier
+                        .testTag("productListTitle")
+                )
+
+                Text(
+                    text = "25 products found",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_light)),
+                        fontWeight = FontWeight(400),
+                        color = Color(0xFF000000),
+
+                        ),
+                    modifier = Modifier.testTag("productListSubTitle")
+                )
+            }
 
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(200.dp),
