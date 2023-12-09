@@ -45,4 +45,13 @@ class ProductListScreenUnitTest {
         composeTestRule.onNodeWithTag("productName").assertIsDisplayed()
     }
 
+    @Test
+    fun `check product price is displayed on grid`() {
+        // Start the app
+        composeTestRule.setContent {
+            ProductListScreen(listOf(Product("Product 1",null,"£100")))
+        }
+        composeTestRule.onNodeWithTag("productPrice").assertIsDisplayed()
+    }
+
 }
