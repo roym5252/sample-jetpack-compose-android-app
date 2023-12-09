@@ -77,6 +77,17 @@ fun ProductGridItem(product: Product) {
                     color = Color(0xFF565656)
                 )
             )
+
+            Text(
+                text = "100",
+                Modifier.padding(top = 4.dp).fillMaxWidth().testTag("productPrice"), textAlign = TextAlign.Start,
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight(800),
+                    color = Color(0xFF565656)
+                )
+            )
         }
     }
 }
