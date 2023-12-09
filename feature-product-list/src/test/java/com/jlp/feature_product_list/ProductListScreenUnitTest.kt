@@ -1,6 +1,7 @@
 package com.jlp.feature_product_list
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -36,6 +37,11 @@ class ProductListScreenUnitTest {
     @Test
     fun `check subtitle is shown`() {
         composeTestRule.onNodeWithTag("productListSubTitle").assertIsDisplayed()
+    }
+
+    @Test
+    fun `check subtitle shows correct product count`() {
+        composeTestRule.onNodeWithTag("productListSubTitle").assertTextContains("1", substring = true)
     }
 
     @Test

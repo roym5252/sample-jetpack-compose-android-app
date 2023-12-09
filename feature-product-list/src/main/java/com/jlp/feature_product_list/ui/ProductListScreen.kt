@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
@@ -53,7 +54,9 @@ fun ProductListScreen(@PreviewParameter(SampleProductProvider::class) products: 
                 )
 
                 Text(
-                    text = "25 products found",
+                    text = "${products.size} products found",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_light)),
