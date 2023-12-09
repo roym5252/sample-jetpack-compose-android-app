@@ -1,35 +1,35 @@
 package com.jlp.feature_product_list.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.jlp.core.model.Product
-import com.jlp.feature_product_list.R
+import com.jlp.core.ui.theme.CustomColor
 import com.jlp.feature_product_list.ui.sampledata.SampleProductProvider
 
 @Preview
 @Composable
 fun ProductListScreen(@PreviewParameter(SampleProductProvider::class) products:List<Product>){
+    
+    Box(modifier = Modifier.background(color = CustomColor.Grey).fillMaxSize()){
 
+        LazyVerticalGrid(columns = GridCells.Adaptive(200.dp), Modifier.testTag("productList"), content = {
 
-    LazyVerticalGrid(columns = GridCells.Adaptive(200.dp), Modifier.testTag("productList"), content = {
+            items(products) { product ->
+                ProductGridItem(product = product)
+            }
+        })
+    }
 
-        items(products) { product ->
-
-            /*AsyncImage(model = R.drawable.home, contentDescription = "$product image",Modifier.testTag("productImage"))
-            Text(text = product.title)*/
-
-            ProductGridItem(product = product)
-        }
-    })
 }
 
 

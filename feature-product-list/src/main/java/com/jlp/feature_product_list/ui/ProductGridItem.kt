@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
@@ -19,7 +20,11 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.jlp.core.model.Product
 import com.jlp.feature_product_list.R
@@ -62,7 +67,16 @@ fun ProductGridItem(product: Product) {
                 contentScale = ContentScale.Crop,
             )
 
-            Text(text = "Product Name", Modifier.testTag("productName"))
+            Text(
+                text = "Dishwasher",
+                Modifier.padding(top = 4.dp).fillMaxWidth().testTag("productName"), textAlign = TextAlign.Start,
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    lineHeight = 16.sp,
+                    fontWeight = FontWeight(400),
+                    color = Color(0xFF565656)
+                )
+            )
         }
     }
 }
