@@ -33,9 +33,10 @@ class ProductListScreenPostDataLoadUnitTest {
     @Before
     fun setUp(){
         MockitoAnnotations.openMocks(this)
-        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false)))
+        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product("Product 1",null,"£100.00")))))
+
         composeTestRule.setContent {
-            ProductListScreen(listOf(Product("Product 1",null,"£100.00")),productListScreenViewModel)
+            ProductListScreen(productListScreenViewModel)
         }
     }
 

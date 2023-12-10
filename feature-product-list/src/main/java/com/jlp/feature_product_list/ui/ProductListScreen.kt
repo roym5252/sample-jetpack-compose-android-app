@@ -27,14 +27,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.jlp.core.R
 import com.jlp.core.model.Product
 import com.jlp.core.ui.compose.CustomProgressLoader
-import com.jlp.core.ui.compose.ErrorMessageAndReload
+import com.jlp.core.ui.compose.InfoMessageAndReload
 import com.jlp.core.ui.theme.CustomColor
 
 @Composable
-fun ProductListScreen(
-    products: List<Product>,
-    productListScreenViewModel: ProductListScreenViewModel = hiltViewModel()
-) {
+fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = hiltViewModel()) {
 
     val productListUiState by productListScreenViewModel.uiState.collectAsState()
 
@@ -51,23 +48,29 @@ fun ProductListScreen(
 
         Column {
 
-            TitleAndSubTitle(productListUiState, products)
+            TitleAndSubTitle(productListUiState, productListUiState.products)
 
             if (productListUiState.loading) {
                 CustomProgressLoader(Modifier.testTag("productListLoader"))
-            } else if (!productListUiState.errorMessage.isNullOrBlank()) {
-                ErrorMessageAndReload("Error Message.")
+            } else if (!productListUiState.infoMessage.isNullOrBlank()) {
+                InfoMessageAndReload("Error Message.")
+            } else if (productListUiState.products.isNullOrEmpty()) {
+                InfoMessageAndReload("No dishwashers available.")
             } else {
 
-                LazyVerticalGrid(
-                    columns = GridCells.Adaptive(200.dp),
-                    Modifier.testTag("productList"),
-                    content = {
+                productListUiState.products?.let {
 
-                        items(products) { product ->
-                            ProductGridItem(product = product)
-                        }
-                    })
+                    LazyVerticalGrid(
+                        columns = GridCells.Adaptive(200.dp),
+                        Modifier.testTag("productList"),
+                        content = {
+
+                            items(it) { product ->
+                                ProductGridItem(product = product)
+                            }
+                        })
+                }
+
             }
         }
 
@@ -78,7 +81,7 @@ fun ProductListScreen(
 @Composable
 private fun TitleAndSubTitle(
     productListUiState: ProductListScreenUiState,
-    products: List<Product>
+    products: List<Product>?
 ) {
     Column(Modifier.padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)) {
 
@@ -95,8 +98,16 @@ private fun TitleAndSubTitle(
                 .testTag("productListTitle")
         )
 
+        val subTitle = if (productListUiState.loading) {
+            "Loading..."
+        } else if (products == null) {
+            "--"
+        } else {
+            "${products.size} products found"
+        }
+
         Text(
-            text = if (productListUiState.loading) "Loading..." else "${products.size} products found",
+            text = subTitle,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             style = TextStyle(

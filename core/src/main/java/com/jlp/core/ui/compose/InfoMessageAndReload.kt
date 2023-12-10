@@ -1,9 +1,11 @@
 package com.jlp.core.ui.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -15,15 +17,16 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jlp.core.R
 
 @Composable
-fun ErrorMessageAndReload(message: String) {
+fun InfoMessageAndReload(message: String) {
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
-        Column {
+        Column(verticalArrangement= Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
 
             Text(
                 text = message,
@@ -37,7 +40,7 @@ fun ErrorMessageAndReload(message: String) {
                 modifier = Modifier.testTag("errorMessage")
             )
 
-            Image(painter = painterResource(id = androidx.core.R.drawable.ic_call_answer), modifier = Modifier.testTag("reloadIcon"),contentDescription = "Reload product")
+            Image(painter = painterResource(id = R.drawable.ic_refresh), modifier = Modifier.testTag("reloadIcon").padding(8.dp),contentDescription = "Reload product")
         }
     }
 
