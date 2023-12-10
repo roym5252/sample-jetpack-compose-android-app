@@ -45,6 +45,20 @@ class ProductListScreenPreDataLoadUnitTest {
         composeTestRule.onNodeWithTag("productListLoader").assertIsDisplayed()
     }
 
+    @Test
+    fun `check error message and reload icon are displayed when error occurs`() {
+
+        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(
+            MutableStateFlow(
+                ProductListScreenUiState(loading = false, errorMessage = "Unexpected error occurred.")
+            )
+        )
+        setContent()
+        composeTestRule.onNodeWithTag("errorMessage").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("reloadIcon").assertIsDisplayed()
+    }
+
+
     private fun setContent() {
 
         composeTestRule.setContent {
@@ -54,5 +68,4 @@ class ProductListScreenPreDataLoadUnitTest {
             )
         }
     }
-
 }

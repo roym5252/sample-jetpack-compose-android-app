@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.moshi)
     ksp(libs.moshi.kotlin.codegen)
     implementation(libs.retrofit2.converter.moshi)
+    implementation( "com.airbnb.android:lottie-compose:6.2.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
