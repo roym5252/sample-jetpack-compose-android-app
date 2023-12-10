@@ -7,10 +7,16 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import com.jlp.core.model.Product
 import com.jlp.feature_product_list.ui.ProductListScreen
+import com.jlp.feature_product_list.ui.ProductListScreenUiState
+import com.jlp.feature_product_list.ui.ProductListScreenViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
@@ -21,11 +27,15 @@ class ProductListScreenUnitTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @Mock
+    private lateinit var productListScreenViewModel: ProductListScreenViewModel
+
     @Before
     fun setUp(){
-
+        MockitoAnnotations.openMocks(this)
+        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false)))
         composeTestRule.setContent {
-            ProductListScreen(listOf(Product("Product 1",null,"£100.00")))
+            ProductListScreen(listOf(Product("Product 1",null,"£100.00")),productListScreenViewModel)
         }
     }
 
@@ -42,6 +52,13 @@ class ProductListScreenUnitTest {
     @Test
     fun `check subtitle shows correct product count`() {
         composeTestRule.onNodeWithTag("productListSubTitle").assertTextContains("1", substring = true)
+    }
+
+    @Test
+    fun `check loader is displayed`() {
+
+        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = true)))
+        composeTestRule.onNodeWithTag("productListLoader").assertIsDisplayed()
     }
 
     @Test

@@ -1,9 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt)
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -59,6 +59,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
     implementation(libs.coil.compose)
 
     androidTestImplementation(libs.androidx.junit)
@@ -76,9 +77,10 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.androidx.espresso.core)
     testImplementation(libs.hilt.android.testing)
+    testImplementation (libs.mockito.kotlin)
     kaptTest(libs.hilt.compiler)
     testAnnotationProcessor(libs.hilt.compiler)
-    // Test rules and transitive dependencies:
+
 
     implementation(project(":core"))
 }

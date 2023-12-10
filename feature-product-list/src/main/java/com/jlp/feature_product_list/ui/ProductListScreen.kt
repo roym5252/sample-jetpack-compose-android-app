@@ -10,6 +10,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
@@ -18,17 +21,24 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.jlp.core.model.Product
 import com.jlp.core.ui.theme.CustomColor
-import com.jlp.feature_product_list.ui.sampledata.SampleProductProvider
 
-@Preview
 @Composable
-fun ProductListScreen(@PreviewParameter(SampleProductProvider::class) products: List<Product>) {
+fun ProductListScreen(
+    products: List<Product>,
+    productListScreenViewModel: ProductListScreenViewModel = hiltViewModel()
+) {
+
+    val productListUiState by productListScreenViewModel.uiState.collectAsState()
+
+    DisposableEffect(key1 = productListScreenViewModel) {
+        productListScreenViewModel.onStart()
+        onDispose { productListScreenViewModel.onStop() }
+    }
 
     Box(
         modifier = Modifier
@@ -80,6 +90,7 @@ fun ProductListScreen(@PreviewParameter(SampleProductProvider::class) products: 
         }
 
     }
+
 
 }
 

@@ -1,5 +1,6 @@
 [versions]
 # @keep
+mockk = "5.8.0"
 robolectric = "4.11.1"
 coilCompose = "2.5.0"
 compileSdk = "34"
@@ -24,7 +25,7 @@ retrofit2ConverterMoshi="2.9.0"
 hilt = "2.45"
 leakcanaryAndroid = "2.12"
 loggingInterceptor = "4.9.0"
-mockitoKotlin = "5.1.0"
+mockitoKotlin = "5.2.1"
 mockwebserver = "4.11.0"
 
 
@@ -39,6 +40,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose"
 junit = { module = "junit:junit", version.ref = "junit" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 moshi = { module = "com.squareup.moshi:moshi", version.ref="moshi"}
@@ -62,3 +64,4 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
