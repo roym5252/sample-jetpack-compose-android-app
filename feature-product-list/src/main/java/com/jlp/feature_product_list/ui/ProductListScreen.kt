@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -48,49 +49,53 @@ fun ProductListScreen(
 
         Column {
 
-            Column(Modifier.padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)) {
+            if (productListUiState.loading) {
+                CircularProgressIndicator(Modifier
+                    .testTag("productListLoader"))
+            } else {
+                Column(Modifier.padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)) {
 
-                Text(
-                    text = "Dishwasher",
-                    style = TextStyle(
-                        fontSize = 30.sp,
-                        fontWeight = FontWeight(800),
-                        fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
-                        color = Color(0xFF000000),
+                    Text(
+                        text = "Dishwasher",
+                        style = TextStyle(
+                            fontSize = 30.sp,
+                            fontWeight = FontWeight(800),
+                            fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
+                            color = Color(0xFF000000),
 
-                        ),
-                    modifier = Modifier
-                        .testTag("productListTitle")
-                )
+                            ),
+                        modifier = Modifier
+                            .testTag("productListTitle")
+                    )
 
-                Text(
-                    text = "${products.size} products found",
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_light)),
-                        fontWeight = FontWeight(400),
-                        color = Color(0xFF000000),
+                    Text(
+                        text = "${products.size} products found",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_light)),
+                            fontWeight = FontWeight(400),
+                            color = Color(0xFF000000),
 
-                        ),
-                    modifier = Modifier.testTag("productListSubTitle")
-                )
+                            ),
+                        modifier = Modifier.testTag("productListSubTitle")
+                    )
+                }
+
+                LazyVerticalGrid(
+                    columns = GridCells.Adaptive(200.dp),
+                    Modifier.testTag("productList"),
+                    content = {
+
+                        items(products) { product ->
+                            ProductGridItem(product = product)
+                        }
+                    })
             }
-
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(200.dp),
-                Modifier.testTag("productList"),
-                content = {
-
-                    items(products) { product ->
-                        ProductGridItem(product = product)
-                    }
-                })
         }
 
     }
-
 
 }
 

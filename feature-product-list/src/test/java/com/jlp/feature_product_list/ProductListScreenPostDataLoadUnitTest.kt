@@ -22,7 +22,7 @@ import org.robolectric.annotation.Config
 
 @Config(manifest=Config.NONE)
 @RunWith(RobolectricTestRunner::class)
-class ProductListScreenUnitTest {
+class ProductListScreenPostDataLoadUnitTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -52,13 +52,6 @@ class ProductListScreenUnitTest {
     @Test
     fun `check subtitle shows correct product count`() {
         composeTestRule.onNodeWithTag("productListSubTitle").assertTextContains("1", substring = true)
-    }
-
-    @Test
-    fun `check loader is displayed`() {
-
-        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = true)))
-        composeTestRule.onNodeWithTag("productListLoader").assertIsDisplayed()
     }
 
     @Test
