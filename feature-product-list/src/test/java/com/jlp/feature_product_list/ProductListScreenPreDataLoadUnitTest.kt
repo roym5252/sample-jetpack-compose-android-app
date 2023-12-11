@@ -3,6 +3,10 @@ package com.jlp.feature_product_list
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.test.core.app.ApplicationProvider
+import com.jlp.core.util.CommonUtil
 import com.jlp.feature_product_list.ui.ProductListScreen
 import com.jlp.feature_product_list.ui.ProductListScreenUiState
 import com.jlp.feature_product_list.ui.ProductListScreenViewModel
@@ -27,9 +31,13 @@ class ProductListScreenPreDataLoadUnitTest {
     @Mock
     private lateinit var productListScreenViewModel: ProductListScreenViewModel
 
+    @Mock
+    private lateinit var commonUtil: CommonUtil
+
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
+        //Mockito.`when`(productListScreenViewModel.commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(true)
     }
 
     @Test
@@ -59,10 +67,44 @@ class ProductListScreenPreDataLoadUnitTest {
         composeTestRule.onNodeWithTag("errorMessage").assertIsDisplayed()
         composeTestRule.onNodeWithTag("reloadIcon").assertIsDisplayed()
     }
-    private fun setContent() {
+
+    @Test
+    fun `check not connectivity message and reload icon are displayed when internet is not connected`() {
+
+        Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(false)
+        Mockito.`when`(productListScreenViewModel.commonUtil).thenReturn(commonUtil)
+
+        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(
+            MutableStateFlow(
+                ProductListScreenUiState(loading = false)
+            )
+        )
+        setContent()
+        composeTestRule.onNodeWithTag("errorMessage").assertIsDisplayed()
+        composeTestRule.onNodeWithText("No internet connectivity. Tap to retry.")
+        composeTestRule.onNodeWithTag("reloadIcon").assertIsDisplayed()
+    }
+
+    @Test
+    fun `check reload after error info display is working`() {
+
+        val viewModel = ProductListScreenViewModel(ApplicationProvider.getApplicationContext(),commonUtil)
+        Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(false)
+        setContent(viewModel = viewModel)
+        composeTestRule.onNodeWithTag("errorMessage").assertIsDisplayed()
+        composeTestRule.onNodeWithText("No internet connectivity. Tap to retry.")
+        composeTestRule.onNodeWithTag("reloadIcon").assertIsDisplayed()
+        Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(true)
+        composeTestRule.onNodeWithTag("reloadIcon").performClick()
+        composeTestRule.onNodeWithTag("reloadIcon").assertDoesNotExist()
+        composeTestRule.onNodeWithTag("errorMessage").assertDoesNotExist()
+        composeTestRule.onNodeWithTag("productList").assertIsDisplayed()
+    }
+
+    private fun setContent(viewModel:ProductListScreenViewModel = productListScreenViewModel) {
 
         composeTestRule.setContent {
-            ProductListScreen(productListScreenViewModel)
+            ProductListScreen(viewModel)
         }
     }
 }

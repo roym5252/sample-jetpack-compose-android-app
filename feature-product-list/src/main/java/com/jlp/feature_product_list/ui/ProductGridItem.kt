@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -68,11 +70,12 @@ fun ProductGridItem(product: Product) {
             )
 
             Text(
-                text = "Dishwasher",
+                text = product.title,
                 Modifier.padding(top = 4.dp).fillMaxWidth().testTag("productName"), textAlign = TextAlign.Start,
                 style = TextStyle(
                     fontSize = 18.sp,
                     lineHeight = 16.sp,
+                    fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_medium)),
                     fontWeight = FontWeight(400),
                     color = Color(0xFF565656)
                 )
@@ -84,6 +87,7 @@ fun ProductGridItem(product: Product) {
                 style = TextStyle(
                     fontSize = 18.sp,
                     lineHeight = 16.sp,
+                    fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
                     fontWeight = FontWeight(800),
                     color = Color(0xFF565656)
                 )

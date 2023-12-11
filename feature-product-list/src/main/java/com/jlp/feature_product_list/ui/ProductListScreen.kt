@@ -53,9 +53,14 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
             if (productListUiState.loading) {
                 CustomProgressLoader(Modifier.testTag("productListLoader"))
             } else if (!productListUiState.infoMessage.isNullOrBlank()) {
-                InfoMessageAndReload("Error Message.")
+                InfoMessageAndReload("Error Message."){
+                    productListScreenViewModel.onStart()
+                }
+
             } else if (productListUiState.products.isNullOrEmpty()) {
-                InfoMessageAndReload("No dishwashers available.")
+                InfoMessageAndReload("No dishwashers available."){
+                    productListScreenViewModel.onStart()
+                }
             } else {
 
                 productListUiState.products?.let {

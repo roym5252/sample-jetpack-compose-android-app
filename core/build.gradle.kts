@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -54,13 +55,16 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
 
     implementation(libs.retrofit)
     implementation (libs.logging.interceptor)
     implementation(libs.moshi)
     ksp(libs.moshi.kotlin.codegen)
     implementation(libs.retrofit2.converter.moshi)
-    implementation( "com.airbnb.android:lottie-compose:6.2.0")
+    implementation( libs.lottie.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -2,10 +2,13 @@ package com.jlp.feature_product_list
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextContains
+import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.test.core.app.ApplicationProvider
 import com.jlp.core.model.Product
+import com.jlp.core.util.CommonUtil
 import com.jlp.feature_product_list.ui.ProductListScreen
 import com.jlp.feature_product_list.ui.ProductListScreenUiState
 import com.jlp.feature_product_list.ui.ProductListScreenViewModel
@@ -30,9 +33,14 @@ class ProductListScreenPostDataLoadUnitTest {
     @Mock
     private lateinit var productListScreenViewModel: ProductListScreenViewModel
 
+    @Mock
+    private lateinit var commonUtil: CommonUtil
+
     @Before
     fun setUp(){
         MockitoAnnotations.openMocks(this)
+        Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(true)
+        Mockito.`when`(productListScreenViewModel.commonUtil).thenReturn(commonUtil)
         Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product("Product 1",null,"£100.00")))))
 
         composeTestRule.setContent {
@@ -80,4 +88,13 @@ class ProductListScreenPostDataLoadUnitTest {
         composeTestRule.onNodeWithText("£100.00").assertIsDisplayed()
     }
 
+    @Test
+    fun `check product name on grid displays same as passed`() {
+        composeTestRule.onNodeWithTag("productName").assertTextEquals("Product 1")
+    }
+
+    @Test
+    fun `check product price on grid displays same as passed`() {
+        composeTestRule.onNodeWithTag("productPrice").assertTextEquals("£100.00")
+    }
 }

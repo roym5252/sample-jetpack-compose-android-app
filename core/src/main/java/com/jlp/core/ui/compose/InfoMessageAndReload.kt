@@ -1,6 +1,7 @@
 package com.jlp.core.ui.compose
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,11 +23,11 @@ import androidx.compose.ui.unit.sp
 import com.jlp.core.R
 
 @Composable
-fun InfoMessageAndReload(message: String) {
+fun InfoMessageAndReload(message: String,onClickEvent:()->Unit) {
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
-        Column(verticalArrangement= Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(verticalArrangement= Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.testTag("reloadViewHolder")) {
 
             Text(
                 text = message,
@@ -37,10 +38,10 @@ fun InfoMessageAndReload(message: String) {
                     color = Color(0xFF000000),
 
                     ),
-                modifier = Modifier.testTag("errorMessage")
+                modifier = Modifier.testTag("errorMessage").clickable(onClick = onClickEvent)
             )
 
-            Image(painter = painterResource(id = R.drawable.ic_refresh), modifier = Modifier.testTag("reloadIcon").padding(8.dp),contentDescription = "Reload product")
+            Image(painter = painterResource(id = R.drawable.ic_refresh), modifier = Modifier.testTag("reloadIcon").padding(8.dp).clickable(onClick = onClickEvent),contentDescription = "Reload product")
         }
     }
 
