@@ -23,11 +23,20 @@ import androidx.compose.ui.unit.sp
 import com.jlp.core.R
 
 @Composable
-fun InfoMessageAndReload(message: String,onClickEvent:()->Unit) {
+fun InfoMessageAndReload(message: String, onClickEvent: () -> Unit) {
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .clickable(onClick = onClickEvent, onClickLabel = message),
+        contentAlignment = Alignment.Center
+    ) {
 
-        Column(verticalArrangement= Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.testTag("reloadViewHolder")) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.testTag("reloadViewHolder")
+        ) {
 
             Text(
                 text = message,
@@ -38,10 +47,19 @@ fun InfoMessageAndReload(message: String,onClickEvent:()->Unit) {
                     color = Color(0xFF000000),
 
                     ),
-                modifier = Modifier.testTag("errorMessage").clickable(onClick = onClickEvent)
+                modifier = Modifier
+                    .testTag("errorMessage")
+                    .clickable(onClick = onClickEvent)
             )
 
-            Image(painter = painterResource(id = R.drawable.ic_refresh), modifier = Modifier.testTag("reloadIcon").padding(8.dp).clickable(onClick = onClickEvent),contentDescription = "Reload product")
+            Image(
+                painter = painterResource(id = R.drawable.ic_refresh),
+                modifier = Modifier
+                    .testTag("reloadIcon")
+                    .padding(8.dp)
+                    .clickable(onClick = onClickEvent),
+                contentDescription = "Reload product"
+            )
         }
     }
 

@@ -3,8 +3,9 @@ package com.jlp.feature_product_list.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlp.core.model.Product
 import com.jlp.core.util.CommonUtil
+import com.jlp.core.util.TaskResult
+import com.jlp.core.domain.GetProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductListScreenViewModel @Inject constructor(application: Application,val commonUtil: CommonUtil) :
+class ProductListScreenViewModel @Inject constructor(
+    application: Application,
+    val commonUtil: CommonUtil,
+    val getProductsUseCase: GetProductsUseCase
+) :
     AndroidViewModel(application) {
 
     private val _uiState = MutableStateFlow(ProductListScreenUiState())
@@ -30,18 +35,41 @@ class ProductListScreenViewModel @Inject constructor(application: Application,va
 
         getProductsJob = viewModelScope.launch {
 
-            if (commonUtil.isInternetConnected(getApplication())){
+            if (commonUtil.isInternetConnected(getApplication())) {
 
-                _uiState.emit(
-                    ProductListScreenUiState(
-                        false, products = listOf(
-                            Product("Product 1", "ssd", "99.99"),
-                            Product("Product 2", "ssd", "109.99")
+                when(val result = getProductsUseCase()){
+
+                    is TaskResult.Success->{
+
+                        val products = result.data
+
+                        if (products!=null){
+
+                            _uiState.value = ProductListScreenUiState(
+                                loading = false,
+                               products = products
+                            )
+
+                        }else{
+
+                            _uiState.value = ProductListScreenUiState(
+                                loading = false,
+                                infoMessage = "Unexpected error occurred."
+                            )
+                        }
+
+                    }
+
+                    is TaskResult.Error ->{
+
+                        _uiState.value = ProductListScreenUiState(
+                            loading = false,
+                            infoMessage = "Unexpected error occurred."
                         )
-                    )
-                )
+                    }
+                }
 
-            }else{
+            } else {
 
                 _uiState.emit(
                     ProductListScreenUiState(

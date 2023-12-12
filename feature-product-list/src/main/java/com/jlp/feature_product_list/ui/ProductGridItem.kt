@@ -16,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -43,7 +43,7 @@ fun ProductGridItem(product: Product) {
             )
             .padding(1.dp)
             .width(160.dp)
-            .height(215.dp)
+            .height(265.dp)
             .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 15.dp))
     ) {
 
@@ -55,30 +55,31 @@ fun ProductGridItem(product: Product) {
         ) {
 
             AsyncImage(
-                model = if (product.image?.isNotEmpty() == true) "https://static.standard.co.uk/2023/06/27/10/android-logo.jpg?width=1200" else R.drawable.home,
+                model = if (product.image?.isNotEmpty() == true) product.image else R.drawable.home,
                 contentDescription = "$product image",
                 modifier = Modifier
                     .width(200.dp)
-                    .height(120.dp)
+                    .height(160.dp)
                     .testTag("productImage")
                     .sizeIn(minHeight = 300.dp)
-                    .clipToBounds()
                     .clickable(onClickLabel = "Test") {
 
                     },
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
             )
 
             Text(
                 text = product.title,
                 Modifier.padding(top = 4.dp).fillMaxWidth().testTag("productName"), textAlign = TextAlign.Start,
                 style = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     lineHeight = 16.sp,
                     fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_medium)),
                     fontWeight = FontWeight(400),
                     color = Color(0xFF565656)
-                )
+                ),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 3,
             )
 
             Text(
