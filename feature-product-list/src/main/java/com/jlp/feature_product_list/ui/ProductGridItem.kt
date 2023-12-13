@@ -35,7 +35,7 @@ import com.jlp.core.model.Product
 import com.jlp.feature_product_list.R
 
 @Composable
-fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long)->Unit) {
+fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,productTitle:String)->Unit) {
 
     Box(
         Modifier
@@ -46,7 +46,7 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long)->Unit)
                 shape = RoundedCornerShape(size = 15.dp)
             )
             .clickable(onClickLabel = stringResource(id = R.string.tap_to_open_detail_screen), onClick = {
-                onProductClickEvent(product.id)
+                onProductClickEvent(product.id,product.title)
             })
             .padding(1.dp)
             .width(160.dp)

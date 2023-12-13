@@ -43,6 +43,7 @@ class ProductListScreenPostDataLoadUnitTest {
     private lateinit var commonUtil: CommonUtil
 
     private var selectedProductId:Long = 0
+    private var selectedProductTitle:String? = null
 
     @Before
     fun setUp(){
@@ -52,8 +53,9 @@ class ProductListScreenPostDataLoadUnitTest {
         Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product(1L,"Product 1",null,"£100.00")))))
 
         composeTestRule.setContent {
-            ProductListScreen(productListScreenViewModel){
-                selectedProductId = it
+            ProductListScreen(productListScreenViewModel){ productId: Long, productTitle: String ->
+                selectedProductId = productId
+                selectedProductTitle = productTitle
             }
         }
     }
@@ -118,8 +120,9 @@ class ProductListScreenPostDataLoadUnitTest {
     }
 
     @Test
-    fun `check click on individual product is returning correct product id`() {
+    fun `check click on individual product is returning correct product id and title`() {
         composeTestRule.onNodeWithTag("productGridItem",useUnmergedTree = true).performClick()
         Assert.assertTrue(selectedProductId==1L)
+        Assert.assertTrue(selectedProductTitle.contentEquals("Product 1"))
     }
 }

@@ -35,8 +35,8 @@ fun AppContent(){
 
         composable(SCREEN_NAME_PRODUCT_LIST) {
 
-            ProductListScreen(){
-                Timber.d("Clicked Product ID:$it")
+            ProductListScreen{ productId: Long, productTitle: String ->
+                Timber.d("Product ID: $productId and Title:$productTitle")
             }
         }
     }
