@@ -41,9 +41,10 @@ fun AppContent() {
 
         composable(SCREEN_NAME_PRODUCT_LIST) {
 
-            ProductListScreen {
-                Timber.d("Clicked Product ID:$it")
-                navController.navigate("$SCREEN_NAME_PRODUCT_DETAIL/${it}/${"Product Title"}")
+            ProductListScreen{ productId: Long, productTitle: String ->
+                Timber.d("Product ID: $productId and Title:$productTitle")
+
+                navController.navigate("$SCREEN_NAME_PRODUCT_DETAIL/${it}/${productTitle}")
             }
         }
 

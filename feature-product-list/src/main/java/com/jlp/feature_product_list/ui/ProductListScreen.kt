@@ -37,7 +37,7 @@ import com.jlp.feature_product_list.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = hiltViewModel(),onProductClickEvent:(productId:Long)->Unit) {
+fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = hiltViewModel(),onProductClickEvent:(productId:Long,productTitle:String)->Unit) {
 
     val productListUiState by productListScreenViewModel.uiState.collectAsState()
 
