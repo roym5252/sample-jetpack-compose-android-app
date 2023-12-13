@@ -51,6 +51,12 @@ class ProductDetailScreenPreDataLoadUnitTest {
         composeTestRule.onNodeWithTag("productDetailTitle").assertIsDisplayed()
     }
 
+    @Test
+    fun `check back button is displayed`() {
+        setContent()
+        composeTestRule.onNodeWithTag("productDetailBackButton").assertIsDisplayed()
+    }
+
     private fun setContent(viewModel: ProductDetailViewModel = productDetailViewModel) {
 
         composeTestRule.setContent {
