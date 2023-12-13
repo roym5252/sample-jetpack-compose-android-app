@@ -37,7 +37,7 @@ import com.jlp.feature_product_list.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = hiltViewModel()) {
+fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = hiltViewModel(),onProductClickEvent:(productId:Long)->Unit) {
 
     val productListUiState by productListScreenViewModel.uiState.collectAsState()
 
@@ -94,7 +94,7 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
                                 content = {
 
                                     items(it,key = {it.id}) { product ->
-                                        ProductGridItem(product = product)
+                                        ProductGridItem(product = product,onProductClickEvent)
                                     }
                                 })
                         }

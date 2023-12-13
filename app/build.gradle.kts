@@ -85,6 +85,7 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation (libs.material)
     implementation (libs.rootbeer.lib)
+    implementation (libs.timber)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

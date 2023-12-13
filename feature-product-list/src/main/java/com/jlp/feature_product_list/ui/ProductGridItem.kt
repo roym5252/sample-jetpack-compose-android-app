@@ -1,6 +1,5 @@
 package com.jlp.feature_product_list.ui
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -19,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -37,8 +35,8 @@ import com.jlp.core.model.Product
 import com.jlp.feature_product_list.R
 
 @Composable
-fun ProductGridItem(product: Product) {
-    val context = LocalContext.current
+fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long)->Unit) {
+
     Box(
         Modifier
             .testTag("productGridItem")
@@ -47,11 +45,9 @@ fun ProductGridItem(product: Product) {
                 color = Color(0xFFF2F2F2),
                 shape = RoundedCornerShape(size = 15.dp)
             )
-            .clickable(onClickLabel = stringResource(id = R.string.tap_to_open_detail_screen)) {
-                Toast
-                    .makeText(context, "Clicked", Toast.LENGTH_LONG)
-                    .show()
-            }
+            .clickable(onClickLabel = stringResource(id = R.string.tap_to_open_detail_screen), onClick = {
+                onProductClickEvent(product.id)
+            })
             .padding(1.dp)
             .width(160.dp)
             .height(265.dp)

@@ -115,7 +115,9 @@ class ProductListScreenPreDataLoadUnitTest {
     private fun setContent(viewModel:ProductListScreenViewModel = productListScreenViewModel) {
 
         composeTestRule.setContent {
-            ProductListScreen(viewModel)
+            ProductListScreen(viewModel){
+
+            }
         }
     }
 }

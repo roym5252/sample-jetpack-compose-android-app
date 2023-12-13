@@ -12,6 +12,7 @@ import com.jlp.feature_product_list.ui.ProductListScreen
 import com.jlp.sampleapp.util.SCREEN_NAME_PRODUCT_LIST
 import com.jlp.sampleapp.util.makeSystemStatusBarTransparent
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -33,7 +34,10 @@ fun AppContent(){
     NavHost(navController = navController, startDestination = SCREEN_NAME_PRODUCT_LIST) {
 
         composable(SCREEN_NAME_PRODUCT_LIST) {
-            ProductListScreen()
+
+            ProductListScreen(){
+                Timber.d("Clicked Product ID:$it")
+            }
         }
     }
 

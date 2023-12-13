@@ -10,6 +10,7 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import com.jlp.core.model.Product
 import com.jlp.core.util.CommonUtil
@@ -17,6 +18,7 @@ import com.jlp.feature_product_list.ui.ProductListScreen
 import com.jlp.feature_product_list.ui.ProductListScreenUiState
 import com.jlp.feature_product_list.ui.ProductListScreenViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -40,15 +42,19 @@ class ProductListScreenPostDataLoadUnitTest {
     @Mock
     private lateinit var commonUtil: CommonUtil
 
+    private var selectedProductId:Long = 0
+
     @Before
     fun setUp(){
         MockitoAnnotations.openMocks(this)
         Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(true)
         Mockito.`when`(productListScreenViewModel.commonUtil).thenReturn(commonUtil)
-        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product(0L,"Product 1",null,"£100.00")))))
+        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product(1L,"Product 1",null,"£100.00")))))
 
         composeTestRule.setContent {
-            ProductListScreen(productListScreenViewModel)
+            ProductListScreen(productListScreenViewModel){
+                selectedProductId = it
+            }
         }
     }
 
@@ -109,5 +115,11 @@ class ProductListScreenPostDataLoadUnitTest {
                 it.config.getOrNull(SemanticsActions.OnClick)?.label == "Tap to open detail screen."
             }
         )
+    }
+
+    @Test
+    fun `check click on individual product is returning correct product id`() {
+        composeTestRule.onNodeWithTag("productGridItem",useUnmergedTree = true).performClick()
+        Assert.assertTrue(selectedProductId==1L)
     }
 }

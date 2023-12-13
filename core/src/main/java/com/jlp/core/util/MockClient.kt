@@ -1,7 +1,6 @@
 package com.jlp.core.util
 
 import android.content.Context
-import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Interceptor.*
 import okhttp3.Protocol
@@ -17,15 +16,12 @@ class MockClient @Inject constructor(private val context: Context, private val p
     @Throws(IOException::class)
     override fun intercept(chain: Chain): Response {
         val url = chain.request().url
-        Log.d("MockClient", "url=$url")
 
         val modifiedUrl = chain.request().url.newBuilder().apply {
             addQueryParameter("key", prefUtil.getString("api_key"))
         }.build()
 
-        Log.d("MockClient", "Modified URL=$modifiedUrl")
-
-        val newRequest = chain.request().newBuilder().url(url).build()
+        val newRequest = chain.request().newBuilder().url(modifiedUrl).build()
 
         when (url.encodedPath) {
             Constant.API_SEARCH -> {
