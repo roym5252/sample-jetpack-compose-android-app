@@ -5,11 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.jlp.featire_product_detail.ui.ProductDetailScreen
 import com.jlp.feature_product_list.ui.ProductListScreen
+import com.jlp.sampleapp.util.ARGUMENT_PRODUCT_ID
+import com.jlp.sampleapp.util.ARGUMENT_PRODUCT_TITLE
 import com.jlp.sampleapp.util.SCREEN_NAME_PRODUCT_DETAIL
 import com.jlp.sampleapp.util.SCREEN_NAME_PRODUCT_LIST
 import com.jlp.sampleapp.util.makeSystemStatusBarTransparent
@@ -29,7 +33,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppContent(){
+fun AppContent() {
 
     val navController = rememberNavController()
 
@@ -37,13 +41,28 @@ fun AppContent(){
 
         composable(SCREEN_NAME_PRODUCT_LIST) {
 
-            ProductListScreen{
+            ProductListScreen {
                 Timber.d("Clicked Product ID:$it")
+                navController.navigate("$SCREEN_NAME_PRODUCT_DETAIL/${it}/${"Product Title"}")
             }
         }
 
-        composable(SCREEN_NAME_PRODUCT_DETAIL) {
-            ProductDetailScreen()
+        composable(
+            route = "$SCREEN_NAME_PRODUCT_DETAIL/{$ARGUMENT_PRODUCT_ID}/{$ARGUMENT_PRODUCT_TITLE}",
+            arguments = listOf(navArgument(ARGUMENT_PRODUCT_ID) {
+                type = NavType.LongType
+            }, navArgument(ARGUMENT_PRODUCT_TITLE) {
+                type = NavType.StringType
+            })
+
+        ) {
+            val productId = it.arguments?.getLong(ARGUMENT_PRODUCT_ID)
+            val productTitle = it.arguments?.getString(ARGUMENT_PRODUCT_TITLE)
+
+            if (productId != null) {
+                ProductDetailScreen(productId, productTitle)
+            }
+
         }
     }
 
