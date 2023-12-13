@@ -33,7 +33,8 @@ class JLPApp: Application() {
         }*/
 
 
-        prefUtil.saveString("api_key",BuildConfig.API_KEY)
+        //prefUtil.saveString("api_key",BuildConfig.API_KEY)
+        prefUtil.saveString("api_key","PLACE API KEY HERE")
 
     }
 }

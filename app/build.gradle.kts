@@ -24,10 +24,10 @@ android {
             useSupportLibrary = true
         }
 
-        val properties = Properties()
+        /*val properties = Properties()
         properties.load(project.rootProject.file("local.properties").reader())
 
-        buildConfigField("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
+        buildConfigField("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")*/
     }
 
     buildTypes {
