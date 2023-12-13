@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="production_list_title">Dishwasher</string>
+    <string name="products_found">products found</string>
+    <string name="product_found">product found</string>
+    <string name="subtitle_error_text">No products loaded</string>
+    <string name="loading">Loading…</string>
+    <string name="no_dishwashers_available">No dishwashers available.</string>
+    <string name="no_internet_message">No internet connectivity. Tap to retry.</string>
+    <string name="unexpected_error_retry">"Unexpected error occurred. Tap to retry."</string>
+    <string name="tap_to_open_detail_screen">"Tap to open detail screen."</string>
+
+</resources>

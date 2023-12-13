@@ -8,7 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
@@ -16,6 +20,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -24,12 +30,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.jlp.core.R
-import com.jlp.core.model.Product
 import com.jlp.core.ui.compose.CustomProgressLoader
 import com.jlp.core.ui.compose.InfoMessageAndReload
 import com.jlp.core.ui.theme.CustomColor
+import com.jlp.feature_product_list.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = hiltViewModel()) {
 
@@ -46,37 +52,57 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
             .fillMaxSize()
     ) {
 
-        Column {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        TitleAndSubTitle(productListUiState)
+                    }, colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = CustomColor.Grey,
+                    ), modifier = Modifier.testTag("productListToolBar")
+                )
+            },
+        ) { innerPadding ->
 
-            TitleAndSubTitle(productListUiState, productListUiState.products)
+            Box(
+                Modifier
+                    .padding(top = 8.dp)
+                    .background(CustomColor.Grey)
+            ) {
 
-            if (productListUiState.loading) {
-                CustomProgressLoader(Modifier.testTag("productListLoader"))
-            } else if (!productListUiState.infoMessage.isNullOrBlank()) {
-                InfoMessageAndReload("Error Message."){
-                    productListScreenViewModel.onStart()
+                Column(modifier = Modifier.padding(innerPadding)) {
+
+                    if (productListUiState.loading) {
+                        CustomProgressLoader(Modifier.testTag("productListLoader"), stringResource(
+                            id = R.string.loading
+                        ))
+                    } else if (productListUiState.infoMessage!=null) {
+                        InfoMessageAndReload(stringResource(id = productListUiState.infoMessage!!)) {
+                            productListScreenViewModel.onStart()
+                        }
+
+                    } else if (productListUiState.products.isNullOrEmpty()) {
+                        InfoMessageAndReload(stringResource(id = R.string.no_dishwashers_available)) {
+                            productListScreenViewModel.onStart()
+                        }
+                    } else {
+
+                        productListUiState.products?.let {
+
+                            LazyVerticalGrid(columns = GridCells.Adaptive(200.dp),
+                                Modifier.testTag("productList"),
+                                content = {
+
+                                    items(it,key = {it.id}) { product ->
+                                        ProductGridItem(product = product)
+                                    }
+                                })
+                        }
+
+                    }
                 }
-
-            } else if (productListUiState.products.isNullOrEmpty()) {
-                InfoMessageAndReload("No dishwashers available."){
-                    productListScreenViewModel.onStart()
-                }
-            } else {
-
-                productListUiState.products?.let {
-
-                    LazyVerticalGrid(
-                        columns = GridCells.Adaptive(200.dp),
-                        Modifier.testTag("productList"),
-                        content = {
-
-                            items(it) { product ->
-                                ProductGridItem(product = product)
-                            }
-                        })
-                }
-
             }
+
         }
 
     }
@@ -85,44 +111,43 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
 
 @Composable
 private fun TitleAndSubTitle(
-    productListUiState: ProductListScreenUiState,
-    products: List<Product>?
+    productListUiState: ProductListScreenUiState
 ) {
-    Column(Modifier.padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)) {
+    Column(modifier = Modifier.semantics(mergeDescendants = true) {}) {
 
         Text(
-            text = "Dishwasher",
+            text = stringResource(R.string.production_list_title),
             style = TextStyle(
                 fontSize = 30.sp,
                 fontWeight = FontWeight(800),
-                fontFamily = FontFamily(Font(R.font.montserrat_bold)),
+                fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
                 color = Color(0xFF000000),
 
                 ),
-            modifier = Modifier
-                .testTag("productListTitle")
+            modifier = Modifier.testTag("productListTitle")
         )
 
         val subTitle = if (productListUiState.loading) {
-            "Loading..."
-        } else if (products == null) {
-            "--"
+            stringResource(R.string.loading)
+        } else if (productListUiState.products == null) {
+            stringResource(R.string.subtitle_error_text)
         } else {
-            "${products.size} products found"
+
+            if (productListUiState.products.size == 1) {
+                "${productListUiState.products.size} ${stringResource(R.string.product_found)}"
+            } else {
+                "${productListUiState.products.size} ${stringResource(R.string.products_found)}"
+            }
         }
 
         Text(
-            text = subTitle,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            style = TextStyle(
+            text = subTitle, maxLines = 1, overflow = TextOverflow.Ellipsis, style = TextStyle(
                 fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.montserrat_light)),
+                fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_light)),
                 fontWeight = FontWeight(400),
                 color = Color(0xFF000000),
 
-                ),
-            modifier = Modifier.testTag("productListSubTitle")
+                ), modifier = Modifier.testTag("productListSubTitle")
         )
     }
 }

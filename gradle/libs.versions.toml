@@ -8,6 +8,7 @@ compileSdk = "34"
 hiltNavigationCompose = "1.1.0"
 material = "1.10.0"
 minSdk = "24"
+securityCrypto = "1.0.0"
 targetSDK = "34"
 
 activity-compose = "1.8.1"
@@ -38,6 +39,7 @@ androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", vers
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesAndroid" }

@@ -1,5 +1,9 @@
 package com.jlp.feature_product_list
 
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.assertTextEquals
@@ -41,7 +45,7 @@ class ProductListScreenPostDataLoadUnitTest {
         MockitoAnnotations.openMocks(this)
         Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(true)
         Mockito.`when`(productListScreenViewModel.commonUtil).thenReturn(commonUtil)
-        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product("Product 1",null,"£100.00")))))
+        Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product(0L,"Product 1",null,"£100.00")))))
 
         composeTestRule.setContent {
             ProductListScreen(productListScreenViewModel)
@@ -50,17 +54,17 @@ class ProductListScreenPostDataLoadUnitTest {
 
     @Test
     fun `check title is shown`() {
-        composeTestRule.onNodeWithTag("productListTitle").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("productListTitle",useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
     fun `check subtitle is shown`() {
-        composeTestRule.onNodeWithTag("productListSubTitle").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("productListSubTitle",useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
     fun `check subtitle shows correct product count`() {
-        composeTestRule.onNodeWithTag("productListSubTitle").assertTextContains("1", substring = true)
+        composeTestRule.onNodeWithTag("productListSubTitle",useUnmergedTree = true).assertTextContains("1", substring = true)
     }
 
     @Test
@@ -70,17 +74,17 @@ class ProductListScreenPostDataLoadUnitTest {
 
     @Test
     fun `check product image is displayed on grid`() {
-        composeTestRule.onNodeWithTag("productImage").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("productImage",useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
     fun `check product name is displayed on grid`() {
-        composeTestRule.onNodeWithTag("productName").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("productName",useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
     fun `check product price is displayed on grid`() {
-        composeTestRule.onNodeWithTag("productPrice").assertIsDisplayed()
+        composeTestRule.onNodeWithTag("productGridItem",useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
@@ -90,11 +94,20 @@ class ProductListScreenPostDataLoadUnitTest {
 
     @Test
     fun `check product name on grid displays same as passed`() {
-        composeTestRule.onNodeWithTag("productName").assertTextEquals("Product 1")
+        composeTestRule.onNodeWithTag("productName",useUnmergedTree = true).assertTextEquals("Product 1")
     }
 
     @Test
     fun `check product price on grid displays same as passed`() {
-        composeTestRule.onNodeWithTag("productPrice").assertTextEquals("£100.00")
+        composeTestRule.onNodeWithTag("productPrice",useUnmergedTree = true).assertTextEquals("£100.00")
+    }
+
+    @Test
+    fun `check click label is set correctly for product item in product list grid`() {
+        composeTestRule.onNodeWithTag("productGridItem").assert(
+            SemanticsMatcher("onClickLabel is set correctly for product item") {
+                it.config.getOrNull(SemanticsActions.OnClick)?.label == "Tap to open detail screen."
+            }
+        )
     }
 }

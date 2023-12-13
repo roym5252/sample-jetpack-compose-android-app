@@ -6,7 +6,10 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
+import com.jlp.core.domain.GetProductsUseCase
+import com.jlp.core.model.Product
 import com.jlp.core.util.CommonUtil
+import com.jlp.core.util.TaskResult
 import com.jlp.feature_product_list.ui.ProductListScreen
 import com.jlp.feature_product_list.ui.ProductListScreenUiState
 import com.jlp.feature_product_list.ui.ProductListScreenViewModel
@@ -18,6 +21,8 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.stub
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
@@ -34,10 +39,16 @@ class ProductListScreenPreDataLoadUnitTest {
     @Mock
     private lateinit var commonUtil: CommonUtil
 
+    @Mock
+    private lateinit var getProductsUseCase: GetProductsUseCase
+
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-        //Mockito.`when`(productListScreenViewModel.commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(true)
+
+        getProductsUseCase.stub {
+            onBlocking { invoke() }.doReturn(TaskResult.Success(listOf(Product(0L,"Product 1",null,"£100.00"))))
+        }
     }
 
     @Test
@@ -59,7 +70,7 @@ class ProductListScreenPreDataLoadUnitTest {
             MutableStateFlow(
                 ProductListScreenUiState(
                     loading = false,
-                    infoMessage = "Unexpected error occurred."
+                    infoMessage = R.string.unexpected_error_retry
                 )
             )
         )
@@ -88,7 +99,7 @@ class ProductListScreenPreDataLoadUnitTest {
     @Test
     fun `check reload after error info display is working`() {
 
-        val viewModel = ProductListScreenViewModel(ApplicationProvider.getApplicationContext(),commonUtil)
+        val viewModel = ProductListScreenViewModel(ApplicationProvider.getApplicationContext(),commonUtil,getProductsUseCase)
         Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(false)
         setContent(viewModel = viewModel)
         composeTestRule.onNodeWithTag("errorMessage").assertIsDisplayed()

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.jlp.core.util.CommonUtil
 import com.jlp.core.util.TaskResult
 import com.jlp.core.domain.GetProductsUseCase
+import com.jlp.feature_product_list.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,7 +28,7 @@ class ProductListScreenViewModel @Inject constructor(
     private lateinit var getProductsJob: Job
 
     /**
-     * Function for fetching random images every 10 seconds.
+     * Function for fetching products.
      */
     private fun getProducts() {
 
@@ -54,7 +55,7 @@ class ProductListScreenViewModel @Inject constructor(
 
                             _uiState.value = ProductListScreenUiState(
                                 loading = false,
-                                infoMessage = "Unexpected error occurred."
+                                infoMessage = R.string.unexpected_error_retry
                             )
                         }
 
@@ -64,7 +65,7 @@ class ProductListScreenViewModel @Inject constructor(
 
                         _uiState.value = ProductListScreenUiState(
                             loading = false,
-                            infoMessage = "Unexpected error occurred."
+                            infoMessage = R.string.unexpected_error_retry
                         )
                     }
                 }
@@ -73,7 +74,7 @@ class ProductListScreenViewModel @Inject constructor(
 
                 _uiState.emit(
                     ProductListScreenUiState(
-                        false, infoMessage = "No internet connectivity. Tap to retry."
+                        false, infoMessage = R.string.no_internet_message
                     )
                 )
             }
@@ -82,7 +83,7 @@ class ProductListScreenViewModel @Inject constructor(
     }
 
     /**
-     * Method for cancelling the image fetching job.
+     * Method for cancelling the product fetching job.
      */
     private fun cancelRandomImageFetchJob() {
         getProductsJob.cancel()

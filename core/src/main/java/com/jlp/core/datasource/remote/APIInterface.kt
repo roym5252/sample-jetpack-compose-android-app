@@ -8,5 +8,5 @@ import retrofit2.http.Query
 interface APIInterface {
 
     @GET(Constant.API_SEARCH)
-    fun getProducts(@Query("key")apikey:String="<PLACE API KEY HERE>", @Query("q")title:String="dishwasher"): retrofit2.Call<RemoteProductResponse?>
+    fun getProducts(@Query("q")title:String="dishwasher"): retrofit2.Call<RemoteProductResponse?>
 }

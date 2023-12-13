@@ -13,12 +13,20 @@ import java.io.IOException
 import java.nio.charset.Charset
 import javax.inject.Inject
 
-
-class MockClient @Inject constructor(private val context: Context) : Interceptor {
+class MockClient @Inject constructor(private val context: Context, private val prefUtil: PrefUtil) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Chain): Response {
         val url = chain.request().url
-        Log.d("TAG", "url=$url")
+        Log.d("MockClient", "url=$url")
+
+        val modifiedUrl = chain.request().url.newBuilder().apply {
+            addQueryParameter("key", prefUtil.getString("api_key"))
+        }.build()
+
+        Log.d("MockClient", "Modified URL=$modifiedUrl")
+
+        val newRequest = chain.request().newBuilder().url(url).build()
+
         when (url.encodedPath) {
             Constant.API_SEARCH -> {
                 val response: String? = readJsonFromAssets(context,"mockData/product_list.json")
@@ -26,7 +34,7 @@ class MockClient @Inject constructor(private val context: Context) : Interceptor
                 return Response.Builder()
                     .code(200)
                     .message(response!!)
-                    .request(chain.request())
+                    .request(newRequest)
                     .protocol(Protocol.HTTP_1_1)
                     .body(response.toByteArray().toResponseBody())
                     .addHeader("content-type", "application/json")
@@ -40,7 +48,7 @@ class MockClient @Inject constructor(private val context: Context) : Interceptor
                 return Response.Builder()
                     .code(200)
                     .message(response)
-                    .request(chain.request())
+                    .request(newRequest)
                     .protocol(Protocol.HTTP_1_1)
                     .body(response.toByteArray().toResponseBody())
                     .addHeader("content-type", "application/json")
@@ -49,7 +57,7 @@ class MockClient @Inject constructor(private val context: Context) : Interceptor
         }
     }
 
-    fun readJsonFromAssets(context: Context, filePath: String): String? {
+    private fun readJsonFromAssets(context: Context, filePath: String): String? {
         try {
             val source = context.assets.open(filePath).source().buffer()
             return source.readByteString().string(Charset.forName("utf-8"))

@@ -4,6 +4,7 @@ import android.content.Context
 import com.jlp.core.datasource.remote.APIInterface
 import com.jlp.core.util.Constant.BASE_URL
 import com.jlp.core.util.MockClient
+import com.jlp.core.util.PrefUtil
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -29,8 +30,8 @@ class DataSourceModule {
     }
 
     @Provides
-    fun provideMockClientClient(@ApplicationContext appContext: Context): MockClient {
-        return MockClient(appContext)
+    fun provideMockClientClient(@ApplicationContext appContext: Context,prefUtil: PrefUtil): MockClient {
+        return MockClient(appContext,prefUtil)
     }
 
     @Provides

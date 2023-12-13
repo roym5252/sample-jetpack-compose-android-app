@@ -1,5 +1,6 @@
 package com.jlp.feature_product_list.ui
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -18,7 +19,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -33,18 +38,25 @@ import com.jlp.feature_product_list.R
 
 @Composable
 fun ProductGridItem(product: Product) {
-
+    val context = LocalContext.current
     Box(
         Modifier
+            .testTag("productGridItem")
             .border(
                 width = 1.dp,
                 color = Color(0xFFF2F2F2),
                 shape = RoundedCornerShape(size = 15.dp)
             )
+            .clickable(onClickLabel = stringResource(id = R.string.tap_to_open_detail_screen)) {
+                Toast
+                    .makeText(context, "Clicked", Toast.LENGTH_LONG)
+                    .show()
+            }
             .padding(1.dp)
             .width(160.dp)
             .height(265.dp)
             .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 15.dp))
+            .semantics(mergeDescendants = true) {},
     ) {
 
         Column(
@@ -56,21 +68,23 @@ fun ProductGridItem(product: Product) {
 
             AsyncImage(
                 model = if (product.image?.isNotEmpty() == true) product.image else R.drawable.home,
-                contentDescription = "$product image",
+                contentDescription = null,
                 modifier = Modifier
                     .width(200.dp)
                     .height(160.dp)
                     .testTag("productImage")
-                    .sizeIn(minHeight = 300.dp)
-                    .clickable(onClickLabel = "Test") {
-
-                    },
+                    .sizeIn(minHeight = 300.dp),
                 contentScale = ContentScale.Fit,
+                placeholder = painterResource(id = com.jlp.core.R.drawable.ic_placeholder)
             )
 
             Text(
                 text = product.title,
-                Modifier.padding(top = 4.dp).fillMaxWidth().testTag("productName"), textAlign = TextAlign.Start,
+                Modifier
+                    .padding(top = 4.dp)
+                    .fillMaxWidth()
+                    .testTag("productName"),
+                textAlign = TextAlign.Start,
                 style = TextStyle(
                     fontSize = 16.sp,
                     lineHeight = 16.sp,
@@ -84,7 +98,11 @@ fun ProductGridItem(product: Product) {
 
             Text(
                 text = product.price,
-                Modifier.padding(top = 4.dp).fillMaxWidth().testTag("productPrice"), textAlign = TextAlign.Start,
+                Modifier
+                    .padding(top = 4.dp)
+                    .fillMaxWidth()
+                    .testTag("productPrice"),
+                textAlign = TextAlign.Start,
                 style = TextStyle(
                     fontSize = 18.sp,
                     lineHeight = 16.sp,

@@ -28,13 +28,14 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -69,6 +70,7 @@ dependencies {
     implementation(libs.moshi.kotlin)
     implementation(libs.retrofit2.converter.moshi)
     implementation( libs.lottie.compose)
+    implementation(libs.androidx.security.crypto)
 
     testImplementation(libs.junit)
     testImplementation (libs.kotlinx.coroutines.test)
@@ -79,5 +81,4 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-
 }

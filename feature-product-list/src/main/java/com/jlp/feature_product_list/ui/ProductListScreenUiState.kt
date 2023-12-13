@@ -6,5 +6,5 @@ data class ProductListScreenUiState(
     val loading: Boolean = true,
     val products:List<Product>? = null,
     val showReloadIcon: Boolean = false,
-    val infoMessage: String? = null
+    val infoMessage: Int? = null
 )
