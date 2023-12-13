@@ -11,20 +11,29 @@ class JLPApp: Application() {
     @Inject
     lateinit var prefUtil: PrefUtil
 
-    companion object {
+    /*companion object {
         init {
 
-            /**
+            *//**
              * Loading c file which includes API key.
-             */
+             *//*
             System.loadLibrary("keys")
         }
-    }
+    }*/
 
     private external fun getApiKey(): String
 
     override fun onCreate() {
         super.onCreate()
-        prefUtil.saveString("api_key",getApiKey())
+
+        /*if (CommonUtil().isEmulator()||RootBeer(this).isRooted){
+            exitProcess(0)
+        }else{
+            prefUtil.saveString("api_key",getApiKey())
+        }*/
+
+
+        prefUtil.saveString("api_key",BuildConfig.API_KEY)
+
     }
 }

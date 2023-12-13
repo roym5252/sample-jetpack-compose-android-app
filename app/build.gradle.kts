@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -21,6 +23,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").reader())
+
+        buildConfigField("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
@@ -34,12 +41,12 @@ android {
         }
     }
 
-    ndkVersion = "23.0.7599858" //Change NDK version if required
+    /*ndkVersion = "23.0.7599858" //Change NDK version if required
     externalNativeBuild {
         ndkBuild {
             path("src/main/jni/Android.mk")
         }
-    }
+    }*/
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -50,6 +57,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.4"
@@ -76,6 +84,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
     implementation (libs.material)
+    implementation (libs.rootbeer.lib)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -90,3 +99,10 @@ dependencies {
     implementation(project(":feature-product-list"))
     implementation(project(":feature-product-detail"))
 }
+
+/*
+fun readProperties(propertiesFile: File) = Properties().apply {
+    propertiesFile.inputStream().use { fis ->
+        load(fis)
+    }
+}*/
