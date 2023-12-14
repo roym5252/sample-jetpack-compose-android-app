@@ -2,7 +2,7 @@ package com.jlp.core
 
 import android.util.MalformedJsonException
 import com.jlp.core.datasource.remote.APIInterface
-import com.jlp.core.datasource.remote.model.RemoteProductResponse
+import com.jlp.core.datasource.remote.model.productlist.RemoteProductResponse
 import com.jlp.core.testutil.MainCoroutineRule
 import com.jlp.core.testutil.validProductsJsonResponse
 import com.squareup.moshi.JsonEncodingException

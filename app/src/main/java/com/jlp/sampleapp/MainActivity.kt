@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.jlp.featire_product_detail.ui.ProductDetailScreen
+import com.jlp.feature_product_detail.ui.compose.ProductDetailScreen
 import com.jlp.feature_product_list.ui.ProductListScreen
 import com.jlp.sampleapp.util.ARGUMENT_PRODUCT_ID
 import com.jlp.sampleapp.util.ARGUMENT_PRODUCT_TITLE
@@ -44,7 +44,7 @@ fun AppContent() {
             ProductListScreen{ productId: Long, productTitle: String ->
                 Timber.d("Product ID: $productId and Title:$productTitle")
 
-                navController.navigate("$SCREEN_NAME_PRODUCT_DETAIL/${it}/${productTitle}")
+                navController.navigate("$SCREEN_NAME_PRODUCT_DETAIL/${productId}/${productTitle}")
             }
         }
 
@@ -61,7 +61,7 @@ fun AppContent() {
             val productTitle = it.arguments?.getString(ARGUMENT_PRODUCT_TITLE)
 
             if (productId != null) {
-                ProductDetailScreen(productId, productTitle)
+                ProductDetailScreen(productId, productTitle,navController)
             }
 
         }
