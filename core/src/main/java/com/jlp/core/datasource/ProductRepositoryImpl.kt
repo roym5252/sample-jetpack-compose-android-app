@@ -2,6 +2,7 @@ package com.jlp.core.datasource
 
 import com.jlp.core.datasource.remote.APIInterface
 import com.jlp.core.model.Product
+import com.jlp.core.model.ProductDetail
 import com.jlp.core.util.ErrorType
 import com.jlp.core.util.TaskResult
 import retrofit2.awaitResponse
@@ -20,6 +21,25 @@ class ProductRepositoryImpl @Inject constructor(
 
             body?.let { remoteProducts ->
                 return TaskResult.Success(remoteProducts.map { Product.fromRemoteProduct(it) })
+            }
+        }
+
+        return TaskResult.Error(ErrorType.UNEXPECTED)
+    }
+
+    override suspend fun getProductDetail(productId:Long): TaskResult<ProductDetail?> {
+
+        val response = apiClient.getProductDetail(productId).awaitResponse()
+
+        if (response.code() == 200) {
+
+            val body = response.body()
+
+            body?.let {
+
+                if (body.detailsData.isNotEmpty()){
+                    return TaskResult.Success(ProductDetail.fromRemoteProductDetail(body.detailsData[0]))
+                }
             }
         }
 

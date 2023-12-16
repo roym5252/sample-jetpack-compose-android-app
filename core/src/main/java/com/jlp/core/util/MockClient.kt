@@ -1,6 +1,9 @@
 package com.jlp.core.util
 
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.jlp.core.datasource.remote.model.productdetail.ProductDetailResponse
 import okhttp3.Interceptor
 import okhttp3.Interceptor.*
 import okhttp3.Protocol
@@ -12,7 +15,9 @@ import java.io.IOException
 import java.nio.charset.Charset
 import javax.inject.Inject
 
-class MockClient @Inject constructor(private val context: Context, private val prefUtil: PrefUtil) : Interceptor {
+
+class MockClient @Inject constructor(private val context: Context, private val prefUtil: PrefUtil) :
+    Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Chain): Response {
         val url = chain.request().url
@@ -25,7 +30,7 @@ class MockClient @Inject constructor(private val context: Context, private val p
 
         when (url.encodedPath) {
             Constant.API_SEARCH -> {
-                val response: String? = readJsonFromAssets(context,"mockData/product_list.json")
+                val response: String? = readJsonFromAssets(context, "mockData/product_list.json")
 
                 return Response.Builder()
                     .code(200)
@@ -37,20 +42,45 @@ class MockClient @Inject constructor(private val context: Context, private val p
                     .build()
             }
 
-            else->{
+            else -> {
 
-                val response = "{}"
+                val pathSegment = url.pathSegments
+                val jsonResponse = readJsonAndExtractResult("mockData/product_detail.json")
+
+                val productDetail = jsonResponse?.detailsData?.filter {
+                    it.productId.contentEquals(pathSegment[3])
+                }
+
+                val response = ProductDetailResponse(productDetail!!)
 
                 return Response.Builder()
                     .code(200)
-                    .message(response)
+                    .message(response.toString())
                     .request(newRequest)
                     .protocol(Protocol.HTTP_1_1)
-                    .body(response.toByteArray().toResponseBody())
+                    .body(Gson().toJson(response).toByteArray().toResponseBody())
                     .addHeader("content-type", "application/json")
                     .build()
+
             }
         }
+    }
+
+
+    private fun readJsonAndExtractResult(filePath: String): ProductDetailResponse? {
+        val json: String? = try {
+            // Read the JSON file from the assets folder
+            readJsonFromAssets(context, filePath)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            return null
+        }
+
+        // Use Gson to parse the JSON string
+        val type = object : TypeToken<ProductDetailResponse>() {}.type
+
+        // Extract the desired result (e.g., the first item)
+        return Gson().fromJson(json, type)
     }
 
     private fun readJsonFromAssets(context: Context, filePath: String): String? {

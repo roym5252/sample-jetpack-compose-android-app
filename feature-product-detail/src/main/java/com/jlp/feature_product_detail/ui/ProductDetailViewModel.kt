@@ -3,8 +3,9 @@ package com.jlp.feature_product_detail.ui
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.jlp.core.model.Product
+import com.jlp.core.domain.GetProductDetailUseCase
 import com.jlp.core.util.CommonUtil
+import com.jlp.core.util.TaskResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,8 +14,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ProductDetailViewModel @Inject constructor(val commonUtil: CommonUtil,
+class ProductDetailViewModel @Inject constructor(
+    val commonUtil: CommonUtil,
     application: Application,
+    val getProductDetailUseCase: GetProductDetailUseCase,
 ) : AndroidViewModel(application) {
     private val _uiState = MutableStateFlow(ProductDetailScreenUiState())
     val uiState: StateFlow<ProductDetailScreenUiState> = _uiState
@@ -24,7 +27,7 @@ class ProductDetailViewModel @Inject constructor(val commonUtil: CommonUtil,
     /**
      * Function for fetching products.
      */
-    private fun getProductDetail() {
+    private fun getProductDetail(productId:Long) {
 
         _uiState.value = ProductDetailScreenUiState(true)
 
@@ -32,38 +35,37 @@ class ProductDetailViewModel @Inject constructor(val commonUtil: CommonUtil,
 
             if (commonUtil.isInternetConnected(getApplication())) {
 
-                _uiState.value = ProductDetailScreenUiState(false, product = Product(1L,"Test","","100.00"))
-                /*when(val result = getProductsUseCase()){
+                when (val result = getProductDetailUseCase(productId)) {
 
-                    is TaskResult.Success->{
+                    is TaskResult.Success -> {
 
-                        val products = result.data
+                        val productDetail = result.data
 
-                        if (products!=null){
+                        if (productDetail != null) {
 
                             _uiState.value = ProductDetailScreenUiState(
                                 loading = false,
-                                products = products
+                                productDetail = productDetail
                             )
 
-                        }else{
+                        } else {
 
                             _uiState.value = ProductDetailScreenUiState(
                                 loading = false,
-                                infoMessage = R.string.unexpected_error_retry
+                                infoMessage = com.jlp.core.R.string.unexpected_error_retry
                             )
                         }
 
                     }
 
-                    is TaskResult.Error ->{
+                    is TaskResult.Error -> {
 
                         _uiState.value = ProductDetailScreenUiState(
                             loading = false,
-                            infoMessage = R.string.unexpected_error_retry
+                            infoMessage = com.jlp.core.R.string.unexpected_error_retry
                         )
                     }
-                }*/
+                }
 
             } else {
 
@@ -84,8 +86,8 @@ class ProductDetailViewModel @Inject constructor(val commonUtil: CommonUtil,
         getProductsJob.cancel()
     }
 
-    fun onStart() {
-        getProductDetail()
+    fun onStart(productId: Long) {
+        getProductDetail(productId)
     }
 
     fun onStop() {

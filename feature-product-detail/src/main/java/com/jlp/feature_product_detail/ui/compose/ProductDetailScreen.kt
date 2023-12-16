@@ -3,6 +3,7 @@ package com.jlp.feature_product_detail.ui.compose
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -45,7 +46,7 @@ fun ProductDetailScreen(
     val productDetailUiState by productDetailViewModel.uiState.collectAsState()
 
     DisposableEffect(key1 = productDetailViewModel) {
-        productDetailViewModel.onStart()
+        productDetailViewModel.onStart(productId)
         onDispose { productDetailViewModel.onStop() }
     }
 
@@ -58,7 +59,7 @@ fun ProductDetailScreen(
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight(800),
-                            fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_medium)),
+                            fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_light)),
                             color = Color(0xFF000000),
 
                             ),
@@ -75,7 +76,7 @@ fun ProductDetailScreen(
                         modifier = Modifier.testTag("productDetailBackButton")
                     ) {
                         Icon(
-                            imageVector = Icons.Filled.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back Button"
                         )
                     }
@@ -95,17 +96,17 @@ fun ProductDetailScreen(
                 )
             } else if (productDetailUiState.infoMessage!=null) {
                 InfoMessageAndReload(stringResource(id = productDetailUiState.infoMessage!!)) {
-                    productDetailViewModel.onStart()
+                    productDetailViewModel.onStart(productId)
                 }
 
-            } else if (productDetailUiState.product==null) {
+            } else if (productDetailUiState.productDetail==null) {
                 InfoMessageAndReload(stringResource(id = R.string.no_dishwasher_detail_available)) {
-                    productDetailViewModel.onStart()
+                    productDetailViewModel.onStart(productId)
                 }
             } else {
 
-                productDetailUiState.product?.let {
-                    ProductDetailList()
+                productDetailUiState.productDetail?.let {
+                    ProductDetailList(it)
                 }
             }
         }
