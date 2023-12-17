@@ -150,7 +150,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                         .padding(start = 16.dp, end = if (isTablet) 4.dp else 16.dp)
                                         .background(Color.White)
                                 ) {
-                                    test(it)
+                                    ProductPriceInfoCell(it)
                                 }
 
                             }
@@ -175,7 +175,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                         Text(
                                             text = "Product information",
                                             modifier = Modifier
-                                                .testTag("price")
+                                                .testTag("productInfoLabel")
                                                 .padding(bottom = 8.dp)
                                                 .semantics { heading() },
                                             fontSize = 25.sp,
@@ -205,7 +205,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                         )*/
 
 
-                                        ExpandingText(text = spanned.toAnnotatedString(), isExpanded = isExpanded, isClickable = isClickable)
+                                        ExpandingText(modifier = Modifier.testTag("productInfoText"), text = spanned.toAnnotatedString(), isExpanded = isExpanded, isClickable = isClickable)
 
                                         Text(
                                             text = "Product code: ${it.productCode}",
@@ -364,7 +364,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                             productDetail.additionalIncludedServices
                         )
 
-                        test(productPriceInfo)
+                        ProductPriceInfoCell(productPriceInfo)
                     }
                 }
             }
@@ -376,7 +376,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
 }
 
 @Composable
-private fun test(it: Cell.ProductPriceInfo) {
+private fun ProductPriceInfoCell(it: Cell.ProductPriceInfo) {
 
     Column(
         modifier = Modifier

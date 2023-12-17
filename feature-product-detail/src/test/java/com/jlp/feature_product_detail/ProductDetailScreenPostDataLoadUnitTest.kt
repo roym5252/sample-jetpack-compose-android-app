@@ -78,7 +78,7 @@ class ProductDetailScreenPostDataLoadUnitTest {
     fun `check product detail pager indicator is displayed`() {
         composeTestRule.onNodeWithTag("productDetailList").performScrollToIndex(1)
         composeTestRule.onNodeWithTag("productDetailPageIndicator").assertIsDisplayed()
-    }
+    }*/
 
     @Test
     fun `check product detail price is displayed`() {
@@ -89,13 +89,13 @@ class ProductDetailScreenPostDataLoadUnitTest {
     @Test
     fun `check product detail guaranteeClaimInfo is displayed`() {
         composeTestRule.onNodeWithTag("productDetailList").performScrollToIndex(1)
-        composeTestRule.onNodeWithTag("guaranteeClaimInfo").performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithTag("guaranteeClaimInfo").assertIsDisplayed()
     }
 
     @Test
     fun `check product detail includedGuaranteeInfo is displayed`() {
         composeTestRule.onNodeWithTag("productDetailList").performScrollToIndex(1)
-        composeTestRule.onNodeWithTag("includedGuaranteeInfo").performScrollTo().assertIsDisplayed()
+        composeTestRule.onNodeWithTag("includedGuaranteeInfo").assertIsDisplayed()
     }
 
     @Test
@@ -106,10 +106,9 @@ class ProductDetailScreenPostDataLoadUnitTest {
 
     @Test
     fun `check product information text is displayed`() {
-
         composeTestRule.onNodeWithTag("productDetailList").performScrollToIndex(2)
         composeTestRule.onNodeWithTag("productInfoText").assertIsDisplayed()
-    }*/
+    }
 
     @Test
     fun `check product product specification label is displayed`() {
@@ -117,16 +116,11 @@ class ProductDetailScreenPostDataLoadUnitTest {
         composeTestRule.onNodeWithTag("productSpecificationLabel").assertIsDisplayed()
     }
 
-    /*@Test
+    @Test
     fun `check product product specifications are displayed`() {
-
-        composeTestRule.onNodeWithTag("productDetailList").performScrollToIndex(3)
-        composeTestRule.onNodeWithTag("FeatureLabel-F1").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("FeatureValue-V1").assertIsDisplayed()
-
         composeTestRule.onNodeWithTag("productDetailList").performScrollToIndex(4)
-        composeTestRule.onNodeWithTag("FeatureLabel-F2").assertIsDisplayed()
-        composeTestRule.onNodeWithTag("FeatureValue-V2").assertIsDisplayed()
-    }*/
+        composeTestRule.onNodeWithTag("FeatureLabel-test_feature_1",useUnmergedTree = true).assertIsDisplayed()
+        composeTestRule.onNodeWithTag("FeatureValue-test_feature_value_1",useUnmergedTree = true).assertIsDisplayed()
+    }
 
 }
