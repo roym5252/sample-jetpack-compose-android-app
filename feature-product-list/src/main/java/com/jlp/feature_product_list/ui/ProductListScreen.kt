@@ -48,7 +48,7 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
 
     Box(
         modifier = Modifier
-            .background(color = CustomColor.Grey)
+            .background(color = CustomColor.Light_Grey)
             .fillMaxSize()
     ) {
 
@@ -58,7 +58,7 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
                     title = {
                         TitleAndSubTitle(productListUiState)
                     }, colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = CustomColor.Grey,
+                        containerColor = CustomColor.Light_Grey,
                     ), modifier = Modifier.testTag("productListToolBar")
                 )
             },
@@ -67,7 +67,7 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
             Box(
                 Modifier
                     .padding(top = 8.dp)
-                    .background(CustomColor.Grey)
+                    .background(CustomColor.Light_Grey)
             ) {
 
                 Column(modifier = Modifier.padding(innerPadding)) {
@@ -121,7 +121,7 @@ private fun TitleAndSubTitle(
                 fontSize = 30.sp,
                 fontWeight = FontWeight(800),
                 fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
-                color = Color(0xFF000000),
+                color = Color.Black,
 
                 ),
             modifier = Modifier.testTag("productListTitle")
@@ -145,7 +145,7 @@ private fun TitleAndSubTitle(
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_light)),
                 fontWeight = FontWeight(400),
-                color = Color(0xFF000000),
+                color = Color.Black,
 
                 ), modifier = Modifier.testTag("productListSubTitle")
         )
