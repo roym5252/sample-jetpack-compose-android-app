@@ -60,7 +60,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     kapt(libs.hilt.compiler)
     implementation(libs.coil.compose)
-    implementation ("com.webtoonscorp.android:readmore-material:1.5.2")
+    implementation (libs.readmore.material)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

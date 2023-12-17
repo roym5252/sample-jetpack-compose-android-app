@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -39,7 +38,7 @@ import com.jlp.feature_product_detail.ui.ProductDetailViewModel
 fun ProductDetailScreen(
     productId: Long,
     productTitle: String?,
-    navController:NavHostController,
+    navController: NavHostController,
     productDetailViewModel: ProductDetailViewModel = hiltViewModel()
 ) {
 
@@ -72,12 +71,12 @@ fun ProductDetailScreen(
                 ), modifier = Modifier.testTag("productDetailToolBar"),
                 navigationIcon = {
                     IconButton(
-                        onClick = { navController.popBackStack()},
+                        onClick = { navController.popBackStack() },
                         modifier = Modifier.testTag("productDetailBackButton")
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back Button"
+                            contentDescription = stringResource(id = R.string.back_button)
                         )
                     }
                 }
@@ -88,21 +87,26 @@ fun ProductDetailScreen(
         Box(Modifier.padding(innerPadding)) {
 
             if (productDetailUiState.loading) {
+
                 CustomProgressLoader(
                     modifier = Modifier.testTag("productDetailLoader"),
                     contentDescriptionText = stringResource(
                         id = com.jlp.core.R.string.loading
                     )
                 )
-            } else if (productDetailUiState.infoMessage!=null) {
+
+            } else if (productDetailUiState.infoMessage != null) {
+
                 InfoMessageAndReload(stringResource(id = productDetailUiState.infoMessage!!)) {
                     productDetailViewModel.onStart(productId)
                 }
 
-            } else if (productDetailUiState.productDetail==null) {
+            } else if (productDetailUiState.productDetail == null) {
+
                 InfoMessageAndReload(stringResource(id = R.string.no_dishwasher_detail_available)) {
                     productDetailViewModel.onStart(productId)
                 }
+
             } else {
 
                 productDetailUiState.productDetail?.let {

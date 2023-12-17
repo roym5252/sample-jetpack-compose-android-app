@@ -1,6 +1,6 @@
 package com.jlp.feature_product_detail.ui.compose
 
-import ExpandingText
+import ExpandableText
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -205,7 +205,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                         )*/
 
 
-                                        ExpandingText(modifier = Modifier.testTag("productInfoText"), text = spanned.toAnnotatedString(), isExpanded = isExpanded, isClickable = isClickable)
+                                        ExpandableText(modifier = Modifier.testTag("productInfoText"), text = spanned.toAnnotatedString(), isExpanded = isExpanded, isClickable = isClickable)
 
                                         Text(
                                             text = "Product code: ${it.productCode}",

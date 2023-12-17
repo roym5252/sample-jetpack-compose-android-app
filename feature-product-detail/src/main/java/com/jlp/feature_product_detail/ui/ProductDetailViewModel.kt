@@ -25,7 +25,7 @@ class ProductDetailViewModel @Inject constructor(
     private lateinit var getProductsJob: Job
 
     /**
-     * Function for fetching products.
+     * Function for fetching product detail.
      */
     private fun getProductDetail(productId:Long) {
 
@@ -80,7 +80,7 @@ class ProductDetailViewModel @Inject constructor(
     }
 
     /**
-     * Method for cancelling the product fetching job.
+     * Method for cancelling the product detail fetching job.
      */
     private fun cancelGetProductDetailJob() {
         getProductsJob.cancel()

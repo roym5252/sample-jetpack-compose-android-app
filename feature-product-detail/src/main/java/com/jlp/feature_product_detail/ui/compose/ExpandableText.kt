@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
@@ -31,7 +32,7 @@ import com.jlp.core.ui.theme.CustomColor
 const val MINIMIZED_MAX_LINES = 3
 
 @Composable
-fun ExpandingText(
+fun ExpandableText(
     modifier: Modifier = Modifier,
     text: AnnotatedString,
     isExpanded: MutableState<Boolean>,
@@ -69,17 +70,6 @@ fun ExpandingText(
         }
     }
 
-    /*Text(
-        text = finalText,
-        maxLines = if (isExpanded) Int.MAX_VALUE else 3,
-        onTextLayout = {
-
-        },
-        modifier = modifier
-            .clickable(enabled = isClickable) { isExpanded = !isExpanded }
-            .animateContentSize(),
-    )*/
-
     Column {
 
         Text(text = text,
@@ -94,9 +84,17 @@ fun ExpandingText(
                 .animateContentSize())
 
         if (isExpanded.value) {
-            ExpandedTextShowState(isExpanded, "Read less", "readLess")
+            ExpandedTextShowState(
+                isExpanded,
+                stringResource(id = com.jlp.featire_product_detail.R.string.read_less),
+                "readLess"
+            )
         } else {
-            ExpandedTextShowState(isExpanded, "Read more", "readMore")
+            ExpandedTextShowState(
+                isExpanded,
+                stringResource(id = com.jlp.featire_product_detail.R.string.read_more),
+                "readMore"
+            )
         }
     }
 }
@@ -104,12 +102,17 @@ fun ExpandingText(
 @Composable
 fun ExpandedTextShowState(isExpanded: MutableState<Boolean>, text: String, testTag: String) {
 
-    Box(modifier = Modifier
-        .background(Color.White)
-        .fillMaxWidth()
-        .clickable(onClick = {
-            isExpanded.value = !isExpanded.value
-        }, onClickLabel = "Click to $text")) {
+    Box(
+        modifier = Modifier
+            .background(Color.White)
+            .fillMaxWidth()
+            .clickable(
+                onClick = {
+                    isExpanded.value = !isExpanded.value
+                },
+                onClickLabel = "${stringResource(id = com.jlp.featire_product_detail.R.string.click_to)} $text"
+            )
+    ) {
         Column(
             modifier = Modifier
                 .background(Color.White)
@@ -135,7 +138,6 @@ fun ExpandedTextShowState(isExpanded: MutableState<Boolean>, text: String, testT
                 fontWeight = FontWeight(800),
                 fontFamily = FontFamily(Font(R.font.montserrat_medium))
             )
-
 
             Box(
                 modifier = Modifier

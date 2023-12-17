@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_dishwasher_detail_available">No detail available.</string>
+    <string name="back_button">Back Button</string>
+    <string name="read_more">Read more</string>
+    <string name="read_less">Read less</string>
+    <string name="click_to">Click to</string>
 </resources>
