@@ -3,7 +3,7 @@ package com.jlp.core.util
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.jlp.core.datasource.remote.model.productdetail.ProductDetailResponse
+import com.jlp.core.datasource.remote.model.productdetail.RemoteProductDetailResponse
 import okhttp3.Interceptor
 import okhttp3.Interceptor.*
 import okhttp3.Protocol
@@ -47,11 +47,11 @@ class MockClient @Inject constructor(private val context: Context, private val p
                 val pathSegment = url.pathSegments
                 val jsonResponse = readJsonAndExtractResult("mockData/product_detail.json")
 
-                val productDetail = jsonResponse?.detailsData?.filter {
+                val productDetail = jsonResponse?.remoteDetailsData?.filter {
                     it.productId.contentEquals(pathSegment[3])
                 }
 
-                val response = ProductDetailResponse(productDetail!!)
+                val response = RemoteProductDetailResponse(productDetail!!)
 
                 return Response.Builder()
                     .code(200)
@@ -67,7 +67,7 @@ class MockClient @Inject constructor(private val context: Context, private val p
     }
 
 
-    private fun readJsonAndExtractResult(filePath: String): ProductDetailResponse? {
+    private fun readJsonAndExtractResult(filePath: String): RemoteProductDetailResponse? {
         val json: String? = try {
             // Read the JSON file from the assets folder
             readJsonFromAssets(context, filePath)
@@ -77,7 +77,7 @@ class MockClient @Inject constructor(private val context: Context, private val p
         }
 
         // Use Gson to parse the JSON string
-        val type = object : TypeToken<ProductDetailResponse>() {}.type
+        val type = object : TypeToken<RemoteProductDetailResponse>() {}.type
 
         // Extract the desired result (e.g., the first item)
         return Gson().fromJson(json, type)

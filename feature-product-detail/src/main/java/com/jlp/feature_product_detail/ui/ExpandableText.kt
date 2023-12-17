@@ -85,13 +85,13 @@ fun ExpandableText(
                 .animateContentSize())
 
         if (isExpanded.value) {
-            ExpandedTextShowState(
+            ExpandCollapseOption(
                 isExpanded,
                 stringResource(id = com.jlp.featire_product_detail.R.string.read_less),
                 "readLess"
             )
         } else {
-            ExpandedTextShowState(
+            ExpandCollapseOption(
                 isExpanded,
                 stringResource(id = com.jlp.featire_product_detail.R.string.read_more),
                 "readMore"
@@ -101,7 +101,7 @@ fun ExpandableText(
 }
 
 @Composable
-fun ExpandedTextShowState(isExpanded: MutableState<Boolean>, text: String, testTag: String) {
+fun ExpandCollapseOption(isExpanded: MutableState<Boolean>, text: String, testTag: String) {
 
     Box(
         modifier = Modifier

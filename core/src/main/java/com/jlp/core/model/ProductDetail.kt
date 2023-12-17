@@ -1,6 +1,6 @@
 package com.jlp.core.model
 
-import com.jlp.core.datasource.remote.model.productdetail.DetailsData
+import com.jlp.core.datasource.remote.model.productdetail.RemoteDetailsData
 
 data class ProductDetail(
     val productId: Long,
@@ -15,38 +15,32 @@ data class ProductDetail(
 
     companion object {
 
-        fun fromRemoteProductDetail(detailsData: DetailsData): ProductDetail {
+        fun fromRemoteProductDetail(remoteDetailsData: RemoteDetailsData): ProductDetail {
 
             var features = listOf<Pair<String, String>>()
             var includedServices = ""
             val optionalServices = ""
 
-            if (detailsData.details.features.isNotEmpty()) {
-                features = detailsData.details.features[0].attributes.map {
+            if (remoteDetailsData.details.features.isNotEmpty()) {
+                features = remoteDetailsData.details.features[0].attributes.map {
                     Pair(it.name, it.value)
                 }
             }
 
-            if (detailsData.additionalServices.includedServices.isNotEmpty()) {
-                detailsData.additionalServices.includedServices.forEach {
+            if (remoteDetailsData.additionalServices.remoteIncludedServices.isNotEmpty()) {
+                remoteDetailsData.additionalServices.remoteIncludedServices.forEach {
                     includedServices= "$includedServices$it, "
                 }
             }
 
-            /*if (detailsData.additionalServices.optionalServices.isNotEmpty()) {
-                detailsData.additionalServices.optionalServices.forEach {
-                    optionalServices= "$optionalServices$it, "
-                }
-            }*/
-
-            if (detailsData.skus.isNotEmpty()) {
+            if (remoteDetailsData.skus.isNotEmpty()) {
 
                 return ProductDetail(
-                    detailsData.productId.toLong(),
-                    (if (detailsData.skus[0].price.currency.contentEquals("GBP")) "£" else detailsData.skus[0].price.currency) + detailsData.skus[0].price.now,
-                    detailsData.skus[0].media.images.urls.map { "https:$it" },
-                    detailsData.skus[0].code,
-                    detailsData.details.productInformation, features,
+                    remoteDetailsData.productId.toLong(),
+                    (if (remoteDetailsData.skus[0].price.currency.contentEquals("GBP")) "£" else remoteDetailsData.skus[0].price.currency) + remoteDetailsData.skus[0].price.now,
+                    remoteDetailsData.skus[0].media.images.urls.map { "https:$it" },
+                    remoteDetailsData.skus[0].code,
+                    remoteDetailsData.details.productInformation, features,
                     includedServices.replace(", ",""),
                     optionalServices.replace(", ",""),
                 )
@@ -54,11 +48,11 @@ data class ProductDetail(
             } else {
 
                 return ProductDetail(
-                    detailsData.productId.toLong(),
+                    remoteDetailsData.productId.toLong(),
                     "",
                     listOf(),
                     "",
-                    detailsData.details.productInformation, features,
+                    remoteDetailsData.details.productInformation, features,
                     includedServices,
                     optionalServices
                 )

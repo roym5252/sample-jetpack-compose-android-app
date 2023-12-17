@@ -15,7 +15,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -40,11 +40,12 @@ class DataSourceModule {
     }
 
     @Provides
-    fun provideApiClient(okHttpClient: OkHttpClient, moshi: Moshi): APIInterface {
+    fun provideApiClient(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): APIInterface {
 
         val apiClient = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            //.addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addConverterFactory(gsonConverterFactory)
             .client(okHttpClient)
             .build()
 
@@ -56,4 +57,6 @@ class DataSourceModule {
     @Provides
     fun provideMoshi():Moshi = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
 
+    @Provides
+    fun provideGsonConverterFactory():GsonConverterFactory = GsonConverterFactory.create()
 }

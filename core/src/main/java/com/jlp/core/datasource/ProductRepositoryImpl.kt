@@ -37,8 +37,8 @@ class ProductRepositoryImpl @Inject constructor(
 
             body?.let {
 
-                if (body.detailsData.isNotEmpty()){
-                    return TaskResult.Success(ProductDetail.fromRemoteProductDetail(body.detailsData[0]))
+                if (body.remoteDetailsData.isNotEmpty()){
+                    return TaskResult.Success(ProductDetail.fromRemoteProductDetail(body.remoteDetailsData[0]))
                 }
             }
         }

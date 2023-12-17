@@ -64,6 +64,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation(libs.retrofit)
+    implementation (libs.converter.gson)
     implementation (libs.logging.interceptor)
     implementation(libs.moshi)
     ksp(libs.moshi.kotlin.codegen)

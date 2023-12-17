@@ -3,7 +3,7 @@ package com.jlp.core.model
 data class Product(val id:Long=0,val title: String, val image: String?, val price: String) {
     companion object {
 
-        fun fromRemoteProduct(remoteProduct: com.jlp.core.datasource.remote.model.productlist.Product): Product {
+        fun fromRemoteProduct(remoteProduct: com.jlp.core.datasource.remote.model.productlist.RemoteProduct): Product {
 
             return Product(
                 remoteProduct.productId.toLong(),
