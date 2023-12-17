@@ -8,8 +8,8 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
-val properties = Properties()
-properties.load(project.rootProject.file("local.properties").reader())
+/*val properties = Properties()
+properties.load(project.rootProject.file("local.properties").reader())*/
 
 android {
     namespace = "com.jlp.sampleapp"
@@ -27,8 +27,8 @@ android {
             useSupportLibrary = true
         }
 
-        /*val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").reader())*/
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").reader())
 
         buildConfigField("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
     }
