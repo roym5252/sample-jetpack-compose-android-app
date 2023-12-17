@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.jlp.core.model.Product
+import com.jlp.core.ui.theme.CustomColor
 import com.jlp.feature_product_list.R
 
 @Composable
@@ -42,7 +43,7 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
             .testTag("productGridItem")
             .border(
                 width = 1.dp,
-                color = Color(0xFFF2F2F2),
+                color = CustomColor.Light_Grey,
                 shape = RoundedCornerShape(size = 15.dp)
             )
             .clickable(onClickLabel = stringResource(id = R.string.tap_to_open_detail_screen), onClick = {
@@ -50,8 +51,8 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
             })
             .padding(1.dp)
             .width(160.dp)
-            .height(265.dp)
-            .background(color = Color(0xFFFFFFFF), shape = RoundedCornerShape(size = 15.dp))
+            .height(340.dp)
+            .background(color = Color.White, shape = RoundedCornerShape(size = 15.dp))
             .semantics(mergeDescendants = true) {},
     ) {
 
@@ -63,11 +64,11 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
         ) {
 
             AsyncImage(
-                model = if (product.image?.isNotEmpty() == true) product.image else R.drawable.home,
+                model = if (product.image?.isNotEmpty() == true) product.image else com.jlp.core.R.drawable.ic_placeholder,
                 contentDescription = null,
                 modifier = Modifier
                     .width(200.dp)
-                    .height(160.dp)
+                    .height(200.dp)
                     .testTag("productImage")
                     .sizeIn(minHeight = 300.dp),
                 contentScale = ContentScale.Fit,
@@ -82,11 +83,11 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
                     .testTag("productName"),
                 textAlign = TextAlign.Start,
                 style = TextStyle(
-                    fontSize = 16.sp,
-                    lineHeight = 16.sp,
+                    fontSize = 18.sp,
+                    lineHeight = 25.sp,
                     fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_medium)),
                     fontWeight = FontWeight(400),
-                    color = Color(0xFF565656)
+                    color = CustomColor.Medium_Grey
                 ),
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 3,
@@ -100,11 +101,11 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
                     .testTag("productPrice"),
                 textAlign = TextAlign.Start,
                 style = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 22.sp,
                     lineHeight = 16.sp,
                     fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
                     fontWeight = FontWeight(800),
-                    color = Color(0xFF565656)
+                    color = CustomColor.Medium_Grey
                 )
             )
         }
