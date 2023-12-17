@@ -24,6 +24,7 @@ variables:
   #        commandlinetools-os_type-ANDROID_SDK_TOOLS_latest.zip
   # when the script was last modified for latest compileSdkVersion, it was which is written down below
   ANDROID_SDK_TOOLS: "9477386"
+  SECURE_FILES_DOWNLOAD_PATH: './'
 
 # Packages installation before running script
 before_script:
@@ -54,6 +55,7 @@ before_script:
 
   # Not necessary, but just for surity
   - chmod +x ./gradlew
+  - curl --silent "https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer" | bash
 
 # Basic android and gradle stuff
 # Check linting
