@@ -8,6 +8,9 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").reader())
+
 android {
     namespace = "com.jlp.sampleapp"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -25,9 +28,9 @@ android {
         }
 
         /*val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").reader())
+        properties.load(project.rootProject.file("local.properties").reader())*/
 
-        buildConfigField("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")*/
+        buildConfigField("String","API_KEY","\"${properties.getProperty("API_KEY")}\"")
     }
 
     buildTypes {
