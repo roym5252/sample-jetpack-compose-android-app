@@ -71,7 +71,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
         Box(
             modifier = Modifier
                 .weight(1f)
-                .background(CustomColor.Grey)
+                .background(CustomColor.Light_Grey)
                 .fillMaxSize()
         ) {
             LazyColumn(content = {
@@ -82,7 +82,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
 
                         is Cell.ProductImage -> {
 
-                            Box(modifier = Modifier.background(CustomColor.Grey)) {
+                            Box(modifier = Modifier.background(CustomColor.Light_Grey)) {
 
                                 Column(
                                     modifier = Modifier
@@ -125,7 +125,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                     ) {
                                         repeat(pagerState.pageCount) { iteration ->
                                             val color =
-                                                if (pagerState.currentPage == iteration) Color.Black else CustomColor.Grey
+                                                if (pagerState.currentPage == iteration) Color.Black else CustomColor.Light_Grey
                                             Box(
                                                 modifier = Modifier
                                                     .padding(2.dp)
@@ -142,7 +142,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
 
                         is Cell.ProductPriceInfo -> {
 
-                            Box(modifier = Modifier.background(CustomColor.Grey)) {
+                            Box(modifier = Modifier.background(CustomColor.Light_Grey)) {
 
                                 Box(
                                     modifier = Modifier
@@ -158,7 +158,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                         }
 
                         is Cell.ProductInfo -> {
-                            Box(modifier = Modifier.background(CustomColor.Grey)) {
+                            Box(modifier = Modifier.background(CustomColor.Light_Grey)) {
 
                                 Box(
                                     modifier = Modifier
@@ -183,6 +183,15 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                             fontFamily = FontFamily(Font(R.font.montserrat_extra_light))
                                         )
 
+                                        Text(
+                                            text = "Product code: ${it.productCode}",
+                                            modifier = Modifier
+                                                .testTag("productCode")
+                                                .padding(bottom = 4.dp),
+                                            fontFamily = FontFamily(Font(R.font.montserrat_medium)),
+                                            fontSize = 20.sp
+                                        )
+
                                         val spannableString =
                                             SpannableStringBuilder(
                                                 productDetail.productInfo!!.replace(
@@ -195,26 +204,8 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                             HtmlCompat.FROM_HTML_MODE_COMPACT
                                         )
 
-                                        /*Text(
-                                            text = spanned.toAnnotatedString(),
-                                            modifier = Modifier
-                                                .testTag("productInformation")
-                                                .padding(bottom = 4.dp),
-                                            fontSize = 18.sp,
-                                            fontFamily = FontFamily(Font(R.font.montserrat_light))
-                                        )*/
-
-
                                         ExpandableText(modifier = Modifier.testTag("productInfoText"), text = spanned.toAnnotatedString(), isExpanded = isExpanded, isClickable = isClickable)
 
-                                        Text(
-                                            text = "Product code: ${it.productCode}",
-                                            modifier = Modifier
-                                                .testTag("productCode")
-                                                .padding(bottom = 4.dp),
-                                            fontFamily = FontFamily(Font(R.font.montserrat_light)),
-                                            fontSize = 20.sp
-                                        )
                                     }
                                 }
                             }
@@ -222,7 +213,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
 
                         is Cell.ProductSpecificationLabel -> {
 
-                            Box(modifier = Modifier.background(CustomColor.Grey)) {
+                            Box(modifier = Modifier.background(CustomColor.Light_Grey)) {
 
                                 Box(
                                     modifier = Modifier
@@ -233,18 +224,18 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
 
                                     Column {
 
-                                        Box(
+                                        /*Box(
                                             modifier = Modifier
                                                 .height(2.dp)
                                                 .padding(start = 8.dp)
-                                                .background(CustomColor.Grey)
+                                                .background(CustomColor.Light_Grey)
                                                 .fillMaxWidth()
-                                        )
+                                        )*/
 
                                         Column(
                                             modifier = Modifier
                                                 .fillMaxWidth()
-                                                .padding(8.dp)
+                                                .padding(start=8.dp, end = 8.dp,top=4.dp, bottom = 8.dp)
                                                 .background(Color.White)
                                         ) {
 
@@ -265,7 +256,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                             modifier = Modifier
                                                 .height(2.dp)
                                                 .padding(start = 8.dp)
-                                                .background(CustomColor.Grey)
+                                                .background(CustomColor.Light_Grey)
                                                 .fillMaxWidth()
                                         )
                                     }
@@ -276,7 +267,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
 
                         is Cell.ProductSpecification -> {
 
-                            Box(modifier = Modifier.background(CustomColor.Grey)) {
+                            Box(modifier = Modifier.background(CustomColor.Light_Grey)) {
 
                                 Box(modifier = Modifier.padding(start = 8.dp, end = if(isTablet) 4.dp else 16.dp)) {
 
@@ -324,7 +315,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
                                             modifier = Modifier
                                                 .height(2.dp)
                                                 .padding(start = 8.dp, end = 8.dp)
-                                                .background(CustomColor.Grey)
+                                                .background(CustomColor.Light_Grey)
                                                 .fillMaxWidth()
                                         )
                                     }
@@ -341,7 +332,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
         if (isTablet) {
             Box(
                 modifier = Modifier
-                    .background(CustomColor.Grey)
+                    .background(CustomColor.Light_Grey)
                     .fillMaxSize()
                     .weight(.60f)
                     .padding(top = 4.dp, end = 16.dp)

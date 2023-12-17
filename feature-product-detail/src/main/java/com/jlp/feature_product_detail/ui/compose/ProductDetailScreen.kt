@@ -67,7 +67,7 @@ fun ProductDetailScreen(
                         overflow = TextOverflow.Ellipsis
                     )
                 }, colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = CustomColor.Grey,
+                    containerColor = CustomColor.Light_Grey,
                 ), modifier = Modifier.testTag("productDetailToolBar"),
                 navigationIcon = {
                     IconButton(

@@ -3,6 +3,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.buildAnnotatedString
@@ -78,7 +77,7 @@ fun ExpandableText(
                 textLayoutResultState.value = it
             },
             fontSize = 18.sp,
-            fontFamily = FontFamily(Font(R.font.montserrat_light)),
+            fontFamily = FontFamily(Font(R.font.montserrat_medium)),
             modifier = modifier
                 .clickable(enabled = isClickable.value) { isExpanded.value = !isExpanded.value }
                 .animateContentSize())
@@ -117,33 +116,43 @@ fun ExpandedTextShowState(isExpanded: MutableState<Boolean>, text: String, testT
             modifier = Modifier
                 .background(Color.White)
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(top = 8.dp)
         ) {
 
             Box(
                 modifier = Modifier
                     .height(2.dp)
-                    .padding(start = 8.dp)
-                    .background(CustomColor.Grey)
+                    .background(CustomColor.Light_Grey)
                     .fillMaxWidth()
-            )
-
-            Text(
-                text = text,
-                modifier = Modifier
-                    .testTag(testTag)
-                    .padding(top = 8.dp, bottom = 8.dp)
-                    .semantics { heading() },
-                fontSize = 20.sp,
-                fontWeight = FontWeight(800),
-                fontFamily = FontFamily(Font(R.font.montserrat_medium))
             )
 
             Box(
                 modifier = Modifier
+                    .background(Color.White)
+                    .fillMaxWidth()
+                    .padding(top = 8.dp, bottom = 8.dp)
+            ){
+
+                Row {
+                    Text(
+                        text = text,
+                        modifier = Modifier
+                            .testTag(testTag)
+                            .padding(top = 4.dp, bottom = 4.dp),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight(800),
+                        fontFamily = FontFamily(Font(R.font.montserrat_medium))
+                    )
+
+
+                }
+
+            }
+
+            Box(
+                modifier = Modifier
                     .height(2.dp)
-                    .padding(start = 8.dp)
-                    .background(CustomColor.Grey)
+                    .background(CustomColor.Light_Grey)
                     .fillMaxWidth()
             )
         }
