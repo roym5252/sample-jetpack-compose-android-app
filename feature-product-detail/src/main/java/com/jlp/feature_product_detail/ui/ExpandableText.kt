@@ -1,3 +1,5 @@
+package com.jlp.feature_product_detail.ui
+
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

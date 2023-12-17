@@ -10,7 +10,7 @@ import com.jlp.core.model.ProductDetail
 import com.jlp.core.util.CommonUtil
 import com.jlp.feature_product_detail.ui.ProductDetailScreenUiState
 import com.jlp.feature_product_detail.ui.ProductDetailViewModel
-import com.jlp.feature_product_detail.ui.compose.ProductDetailScreen
+import com.jlp.feature_product_detail.ui.ProductDetailScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.junit.Before
 import org.junit.Rule

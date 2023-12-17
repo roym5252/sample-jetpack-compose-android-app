@@ -1,6 +1,5 @@
-package com.jlp.feature_product_detail.ui.compose
+package com.jlp.feature_product_detail.ui
 
-import ExpandableText
 import android.graphics.Typeface
 import android.text.SpannableStringBuilder
 import android.text.Spanned

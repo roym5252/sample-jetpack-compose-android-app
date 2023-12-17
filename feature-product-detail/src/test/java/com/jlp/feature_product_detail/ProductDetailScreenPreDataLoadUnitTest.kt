@@ -11,7 +11,7 @@ import com.jlp.core.domain.GetProductDetailUseCase
 import com.jlp.core.model.ProductDetail
 import com.jlp.core.util.CommonUtil
 import com.jlp.core.util.TaskResult
-import com.jlp.feature_product_detail.ui.compose.ProductDetailScreen
+import com.jlp.feature_product_detail.ui.ProductDetailScreen
 import com.jlp.feature_product_detail.ui.ProductDetailScreenUiState
 import com.jlp.feature_product_detail.ui.ProductDetailViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

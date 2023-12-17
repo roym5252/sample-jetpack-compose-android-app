@@ -1,5 +1,6 @@
-package com.jlp.feature_product_detail.ui.compose
+package com.jlp.feature_product_detail.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -17,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -31,7 +33,6 @@ import com.jlp.core.ui.compose.CustomProgressLoader
 import com.jlp.core.ui.compose.InfoMessageAndReload
 import com.jlp.core.ui.theme.CustomColor
 import com.jlp.featire_product_detail.R
-import com.jlp.feature_product_detail.ui.ProductDetailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,10 +111,20 @@ fun ProductDetailScreen(
             } else {
 
                 productDetailUiState.productDetail?.let {
-                    ProductDetailList(it)
+                    ProductDetailList(it,isTablet())
                 }
             }
         }
+    }
+}
+
+@Composable
+fun isTablet(): Boolean {
+    val configuration = LocalConfiguration.current
+    return if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        configuration.screenWidthDp > 840
+    } else {
+        configuration.screenWidthDp > 600
     }
 }
 
