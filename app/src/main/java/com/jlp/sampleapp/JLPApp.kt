@@ -1,30 +1,20 @@
 package com.jlp.sampleapp
 
 import android.app.Application
+import com.jlp.core.util.CommonUtil
 import com.jlp.core.util.PrefUtil
+import com.scottyab.rootbeer.RootBeer
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 import timber.log.Timber.Forest.plant
 import javax.inject.Inject
-
+import kotlin.system.exitProcess
 
 @HiltAndroidApp
 class JLPApp: Application() {
 
     @Inject
     lateinit var prefUtil: PrefUtil
-
-    /*companion object {
-        init {
-
-            *//**
-             * Loading c file which includes API key.
-             *//*
-            System.loadLibrary("keys")
-        }
-    }*/
-
-    private external fun getApiKey(): String
 
     override fun onCreate() {
         super.onCreate()
@@ -33,15 +23,20 @@ class JLPApp: Application() {
             plant(Timber.DebugTree())
         }
 
-        /*if (CommonUtil().isEmulator()||RootBeer(this).isRooted){
-            exitProcess(0)
+        //Checking if build is release version.
+        if(BuildConfig.BUILD_TYPE.contentEquals("release")&&!BuildConfig.DEBUG){
+
+            //Checking if app is running on emulator or device is rooted
+            if (CommonUtil().isEmulator()|| RootBeer(this).isRooted){
+
+                //Exiting app
+                exitProcess(0)
+            }else{
+                prefUtil.saveString("api_key",BuildConfig.API_KEY)
+            }
+
         }else{
-            prefUtil.saveString("api_key",getApiKey())
-        }*/
-
-
-        //prefUtil.saveString("api_key",BuildConfig.API_KEY)
-        prefUtil.saveString("api_key","PLACE API KEY HERE")
-
+            prefUtil.saveString("api_key",BuildConfig.API_KEY)
+        }
     }
 }
