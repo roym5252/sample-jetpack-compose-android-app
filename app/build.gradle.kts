@@ -39,6 +39,12 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("debug"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("debug")
+            isDebuggable = false
+        }
     }
 
     /*ndkVersion = "23.0.7599858" //Change NDK version if required
@@ -92,6 +98,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.benchmark:benchmark-macro-junit4:1.2.2")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation (libs.leakcanary.android)
@@ -100,10 +107,3 @@ dependencies {
     implementation(project(":feature-product-list"))
     implementation(project(":feature-product-detail"))
 }
-
-/*
-fun readProperties(propertiesFile: File) = Properties().apply {
-    propertiesFile.inputStream().use { fis ->
-        load(fis)
-    }
-}*/
