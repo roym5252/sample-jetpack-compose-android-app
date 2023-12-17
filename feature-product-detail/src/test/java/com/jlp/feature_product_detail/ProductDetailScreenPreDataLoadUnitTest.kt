@@ -7,7 +7,10 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.test.core.app.ApplicationProvider
+import com.jlp.core.domain.GetProductDetailUseCase
+import com.jlp.core.model.ProductDetail
 import com.jlp.core.util.CommonUtil
+import com.jlp.core.util.TaskResult
 import com.jlp.feature_product_detail.ui.compose.ProductDetailScreen
 import com.jlp.feature_product_detail.ui.ProductDetailScreenUiState
 import com.jlp.feature_product_detail.ui.ProductDetailViewModel
@@ -19,12 +22,14 @@ import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.stub
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner::class)
-class ProductDetailListScreenPreDataLoadUnitTest {
+class ProductDetailScreenPreDataLoadUnitTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -38,9 +43,20 @@ class ProductDetailListScreenPreDataLoadUnitTest {
     @Mock
     private lateinit var navigationHostController: NavHostController
 
+    @Mock
+    private lateinit var getProductDetailUseCase: GetProductDetailUseCase
+
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
+        val testProductDetail=ProductDetail(1L,"100.00",
+            listOf("test_image_url"),"test_code","test_product_info",
+            listOf(Pair("test_feature_1","test_feature_value_1")),"test_additional_included_services","test_additional_included_services")
+
+        getProductDetailUseCase.stub {
+            onBlocking { invoke(Mockito.anyLong()) }.doReturn(TaskResult.Success(testProductDetail))
+        }
+
     }
 
     @Test
@@ -104,7 +120,7 @@ class ProductDetailListScreenPreDataLoadUnitTest {
     fun `check reload after error info display is working`() {
 
         val viewModel =
-            ProductDetailViewModel(commonUtil, ApplicationProvider.getApplicationContext())
+            ProductDetailViewModel(commonUtil, ApplicationProvider.getApplicationContext(),getProductDetailUseCase)
         Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext()))
             .thenReturn(false)
         setContent(viewModel = viewModel)

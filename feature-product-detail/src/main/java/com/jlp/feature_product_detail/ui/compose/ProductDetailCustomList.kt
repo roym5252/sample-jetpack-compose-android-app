@@ -56,7 +56,7 @@ import com.jlp.core.ui.theme.CustomColor
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = true) {
+fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
 
     val pagerState = rememberPagerState(pageCount = {
         productDetail.imageUrls.size
@@ -116,7 +116,7 @@ fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = true) {
                                         )
                                     }
                                     Row(
-                                        Modifier
+                                        modifier = Modifier
                                             .wrapContentHeight()
                                             .fillMaxWidth()
                                             .padding(bottom = 8.dp, top = 8.dp)
