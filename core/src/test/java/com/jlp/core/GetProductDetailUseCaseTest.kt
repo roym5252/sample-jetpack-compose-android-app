@@ -1,9 +1,9 @@
 package com.jlp.core
 
 import com.jlp.core.datasource.remote.APIInterface
-import com.jlp.core.datasource.remote.model.productlist.RemoteProductResponse
+import com.jlp.core.datasource.remote.model.productdetail.RemoteProductDetailResponse
 import com.jlp.core.testutil.MainCoroutineRule
-import com.jlp.core.testutil.validProductsJsonResponse
+import com.jlp.core.testutil.validProductDetailJsonResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -18,9 +18,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.Exception
-
 @OptIn(ExperimentalCoroutinesApi::class)
-class GetProductsUseCaseTest {
+class GetProductDetailUseCaseTest {
 
     @ExperimentalCoroutinesApi
     @get:Rule
@@ -28,6 +27,8 @@ class GetProductsUseCaseTest {
 
     private lateinit var mockWebServer: MockWebServer
     private lateinit var apiClient: APIInterface
+
+    private val productID:Long= 3218074
 
     @Before
     fun setUp() {
@@ -37,25 +38,26 @@ class GetProductsUseCaseTest {
 
         apiClient = Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
+            //.addConverterFactory(MoshiConverterFactory.create(moshi))
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(APIInterface::class.java)
     }
 
     @Test
-    fun get_products_valid_response_test() = runTest {
+    fun get_product_detail_valid_response_test() = runTest {
 
         val mockResponse: MockResponse = MockResponse()
             .setResponseCode(200)
-            .setBody(validProductsJsonResponse)
+            .setBody(validProductDetailJsonResponse)
 
         mockWebServer.enqueue(mockResponse)
 
-        val call = getProductsApiCall()
-        val response: Response<RemoteProductResponse?> = call.execute()
+        val call = getProductDetailApiCall(1L)
+        val response: Response<RemoteProductDetailResponse?> = call.execute()
 
         Assert.assertEquals(
             true,
-            (response.body() != null && (response.body()?.products != null && response.body()?.products!!.isNotEmpty()))
+            (response.body() != null && (response.body()?.remoteDetailsData != null && response.body()?.remoteDetailsData!!.isNotEmpty()))
         )
     }
 
@@ -68,12 +70,12 @@ class GetProductsUseCaseTest {
 
         mockWebServer.enqueue(mockResponse)
 
-        val call = getProductsApiCall()
-        val response: Response<RemoteProductResponse?> = call.execute()
+        val call = getProductDetailApiCall(productID)
+        val response: Response<RemoteProductDetailResponse?> = call.execute()
 
         Assert.assertEquals(
             true,
-            (response.body() != null && response.body()?.products == null)
+            (response.body() != null && response.body()?.remoteDetailsData == null)
         )
     }
 
@@ -86,7 +88,7 @@ class GetProductsUseCaseTest {
 
         mockWebServer.enqueue(mockResponse)
 
-        val call = getProductsApiCall()
+        val call = getProductDetailApiCall(productID)
 
         val response = try {
             call.execute()
@@ -109,7 +111,7 @@ class GetProductsUseCaseTest {
 
         mockWebServer.enqueue(mockResponse)
 
-        val call = getProductsApiCall()
+        val call = getProductDetailApiCall(productID)
         val response = call.execute()
 
         Assert.assertEquals(true, response.body() == null)
@@ -120,7 +122,7 @@ class GetProductsUseCaseTest {
         mockWebServer.shutdown()
     }
 
-    private fun getProductsApiCall(): Call<RemoteProductResponse?> {
-        return apiClient.getProducts()
+    private fun getProductDetailApiCall(productId:Long): Call<RemoteProductDetailResponse?> {
+        return apiClient.getProductDetail(productId)
     }
 }
