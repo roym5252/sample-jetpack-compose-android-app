@@ -55,7 +55,7 @@ import com.jlp.core.ui.theme.CustomColor
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductDetailList(productDetail: ProductDetail, isTablet: Boolean = false) {
+fun ProductDetailList(productDetail: ProductDetail,isTablet: Boolean = false) {
 
     val pagerState = rememberPagerState(pageCount = {
         productDetail.imageUrls.size

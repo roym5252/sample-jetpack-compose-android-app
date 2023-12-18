@@ -40,7 +40,7 @@ fun ProductDetailScreen(
     productId: Long,
     productTitle: String?,
     navController: NavHostController,
-    productDetailViewModel: ProductDetailViewModel = hiltViewModel()
+    productDetailViewModel: ProductDetailViewModel = hiltViewModel(),
 ) {
 
     val productDetailUiState by productDetailViewModel.uiState.collectAsState()
@@ -116,6 +116,7 @@ fun ProductDetailScreen(
             }
         }
     }
+
 }
 
 @Composable

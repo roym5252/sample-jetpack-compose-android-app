@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,6 +39,7 @@ import com.jlp.feature_product_list.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductListScreen(
+    lazyListState:LazyGridState,
     productListScreenViewModel: ProductListScreenViewModel = hiltViewModel(),
     onProductClickEvent: (productId: Long, productTitle: String) -> Unit
 ) {
@@ -94,8 +96,8 @@ fun ProductListScreen(
 
                         productListUiState.products?.let {
 
-                            LazyVerticalGrid(columns = GridCells.Adaptive(200.dp),
-                                Modifier.testTag("productList"),
+                            LazyVerticalGrid(state = lazyListState, columns = GridCells.Adaptive(200.dp),
+                                modifier = Modifier.testTag("productList"),
                                 content = {
 
                                     items(it, key = { it.id }) { product ->
