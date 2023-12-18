@@ -42,12 +42,14 @@ class ProductListScreenPostDataLoadUnitTest {
     @Mock
     private lateinit var commonUtil: CommonUtil
 
+
     private var selectedProductId:Long = 0
     private var selectedProductTitle:String? = null
 
     @Before
     fun setUp(){
         MockitoAnnotations.openMocks(this)
+
         Mockito.`when`(commonUtil.isInternetConnected(ApplicationProvider.getApplicationContext())).thenReturn(true)
         Mockito.`when`(productListScreenViewModel.commonUtil).thenReturn(commonUtil)
         Mockito.`when`(productListScreenViewModel.uiState).thenReturn(MutableStateFlow(ProductListScreenUiState(loading = false, products = listOf(Product(1L,"Product 1",null,"£100.00")))))

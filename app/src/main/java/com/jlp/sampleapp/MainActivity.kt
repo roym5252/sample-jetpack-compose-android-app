@@ -3,7 +3,6 @@ package com.jlp.sampleapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavType
@@ -37,13 +36,13 @@ class MainActivity : ComponentActivity() {
 fun AppContent() {
 
     val navController = rememberNavController()
-    val lazyGridState = rememberLazyGridState()
+
 
     NavHost(navController = navController, startDestination = SCREEN_NAME_PRODUCT_LIST) {
 
         composable(SCREEN_NAME_PRODUCT_LIST) {
 
-            ProductListScreen(lazyGridState){ productId: Long, productTitle: String ->
+            ProductListScreen(){ productId: Long, productTitle: String ->
                 Timber.d("Product ID: $productId and Title:$productTitle")
                 navController.navigate("$SCREEN_NAME_PRODUCT_DETAIL/${productId}/${productTitle}")
             }

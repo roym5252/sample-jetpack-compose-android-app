@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -39,11 +39,11 @@ import com.jlp.feature_product_list.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductListScreen(
-    lazyListState:LazyGridState,
     productListScreenViewModel: ProductListScreenViewModel = hiltViewModel(),
     onProductClickEvent: (productId: Long, productTitle: String) -> Unit
 ) {
 
+    val lazyGridState = rememberLazyGridState()
     val productListUiState by productListScreenViewModel.uiState.collectAsState()
 
     DisposableEffect(key1 = productListScreenViewModel) {
@@ -96,7 +96,7 @@ fun ProductListScreen(
 
                         productListUiState.products?.let {
 
-                            LazyVerticalGrid(state = lazyListState, columns = GridCells.Adaptive(200.dp),
+                            LazyVerticalGrid(state = lazyGridState, columns = GridCells.Adaptive(200.dp),
                                 modifier = Modifier.testTag("productList"),
                                 content = {
 
