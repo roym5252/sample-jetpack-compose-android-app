@@ -2,11 +2,10 @@ package com.jlp.sampleapp
 
 import android.app.Application
 import com.jlp.core.util.CommonUtil
+import com.jlp.core.util.LogUtil
 import com.jlp.core.util.PrefUtil
 import com.scottyab.rootbeer.RootBeer
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
-import timber.log.Timber.Forest.plant
 import javax.inject.Inject
 import kotlin.system.exitProcess
 
@@ -20,7 +19,7 @@ class JLPApp: Application() {
         super.onCreate()
 
         if (BuildConfig.DEBUG) {
-            plant(Timber.DebugTree())
+            LogUtil.init()
         }
 
         //Checking if build is release version.

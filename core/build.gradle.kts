@@ -74,6 +74,7 @@ dependencies {
     implementation( libs.lottie.compose)
     implementation(libs.androidx.security.crypto)
     implementation (libs.gson)
+    implementation (libs.timber)
 
     testImplementation(libs.junit)
     testImplementation (libs.kotlinx.coroutines.test)

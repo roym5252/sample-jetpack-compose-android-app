@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.jlp.core.util.LogUtil
 import com.jlp.feature_product_detail.ui.ProductDetailScreen
 import com.jlp.feature_product_list.ui.ProductListScreen
 import com.jlp.sampleapp.util.ARGUMENT_PRODUCT_ID
@@ -18,7 +19,6 @@ import com.jlp.sampleapp.util.SCREEN_NAME_PRODUCT_DETAIL
 import com.jlp.sampleapp.util.SCREEN_NAME_PRODUCT_LIST
 import com.jlp.sampleapp.util.makeSystemStatusBarTransparent
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -43,7 +43,7 @@ fun AppContent() {
         composable(SCREEN_NAME_PRODUCT_LIST) {
 
             ProductListScreen(){ productId: Long, productTitle: String ->
-                Timber.d("Product ID: $productId and Title:$productTitle")
+                LogUtil.d("Product ID: $productId and Title:$productTitle")
                 navController.navigate("$SCREEN_NAME_PRODUCT_DETAIL/${productId}/${productTitle}")
             }
         }
