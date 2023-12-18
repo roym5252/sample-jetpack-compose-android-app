@@ -96,8 +96,8 @@ fun ProductListScreen(
 
                         productListUiState.products?.let {
 
-                            LazyVerticalGrid(state = lazyGridState, columns = GridCells.Adaptive(200.dp),
-                                modifier = Modifier.testTag("productList"),
+                            LazyVerticalGrid(state = lazyGridState, columns = GridCells.Adaptive(150.dp),
+                                modifier = Modifier.testTag("productList").padding(start = 4.dp, end = 4.dp),
                                 content = {
 
                                     items(it, key = { it.id }) { product ->

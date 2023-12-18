@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -44,15 +43,12 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
             .border(
                 width = 1.dp,
                 color = CustomColor.Light_Grey,
-                shape = RoundedCornerShape(size = 15.dp)
             )
             .clickable(onClickLabel = stringResource(id = R.string.tap_to_open_detail_screen), onClick = {
                 onProductClickEvent(product.id,product.title)
             })
             .padding(1.dp)
-            .width(160.dp)
-            .height(340.dp)
-            .background(color = Color.White, shape = RoundedCornerShape(size = 15.dp))
+            .background(color = Color.White)
             .semantics(mergeDescendants = true) {},
     ) {
 
@@ -83,7 +79,7 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
                     .testTag("productName"),
                 textAlign = TextAlign.Start,
                 style = TextStyle(
-                    fontSize = 18.sp,
+                    fontSize = 16.sp,
                     lineHeight = 25.sp,
                     fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_medium)),
                     fontWeight = FontWeight(400),
@@ -101,7 +97,7 @@ fun ProductGridItem(product: Product,onProductClickEvent:(productId:Long,product
                     .testTag("productPrice"),
                 textAlign = TextAlign.Start,
                 style = TextStyle(
-                    fontSize = 22.sp,
+                    fontSize = 20.sp,
                     lineHeight = 16.sp,
                     fontFamily = FontFamily(Font(com.jlp.core.R.font.montserrat_bold)),
                     fontWeight = FontWeight(800),

@@ -5,4 +5,8 @@
     <string name="read_more">Read more</string>
     <string name="read_less">Read less</string>
     <string name="click_to">Click to</string>
+    <string name="product_specification">Product specification</string>
+    <string name="product_code">Product code:</string>
+    <string name="product_information">Product information</string>
+    <string name="claim_guarantee_text">"Claim an extra 3 years guarantee via redemption"</string>
 </resources>
