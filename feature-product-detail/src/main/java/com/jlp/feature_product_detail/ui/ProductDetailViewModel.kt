@@ -19,6 +19,7 @@ class ProductDetailViewModel @Inject constructor(
     application: Application,
     val getProductDetailUseCase: GetProductDetailUseCase,
 ) : AndroidViewModel(application) {
+
     private val _uiState = MutableStateFlow(ProductDetailScreenUiState())
     val uiState: StateFlow<ProductDetailScreenUiState> = _uiState
 

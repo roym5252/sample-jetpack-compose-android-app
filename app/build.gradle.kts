@@ -1,5 +1,5 @@
 import org.jetbrains.kotlin.konan.properties.Properties
-
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,9 +7,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
-
-/*val properties = Properties()
-properties.load(project.rootProject.file("local.properties").reader())*/
 
 android {
     namespace = "com.jlp.sampleapp"
@@ -38,6 +35,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
+
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
@@ -49,13 +47,6 @@ android {
             isDebuggable = false
         }
     }
-
-    /*ndkVersion = "23.0.7599858" //Change NDK version if required
-    externalNativeBuild {
-        ndkBuild {
-            path("src/main/jni/Android.mk")
-        }
-    }*/
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -101,7 +92,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    androidTestImplementation("androidx.benchmark:benchmark-macro-junit4:1.2.2")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     debugImplementation (libs.leakcanary.android)

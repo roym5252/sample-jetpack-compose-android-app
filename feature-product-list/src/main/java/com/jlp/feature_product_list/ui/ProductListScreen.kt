@@ -37,7 +37,10 @@ import com.jlp.feature_product_list.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = hiltViewModel(),onProductClickEvent:(productId:Long,productTitle:String)->Unit) {
+fun ProductListScreen(
+    productListScreenViewModel: ProductListScreenViewModel = hiltViewModel(),
+    onProductClickEvent: (productId: Long, productTitle: String) -> Unit
+) {
 
     val productListUiState by productListScreenViewModel.uiState.collectAsState()
 
@@ -73,10 +76,12 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
                 Column(modifier = Modifier.padding(innerPadding)) {
 
                     if (productListUiState.loading) {
-                        CustomProgressLoader(Modifier.testTag("productListLoader"), stringResource(
-                            id = R.string.loading
-                        ))
-                    } else if (productListUiState.infoMessage!=null) {
+                        CustomProgressLoader(
+                            Modifier.testTag("productListLoader"), stringResource(
+                                id = R.string.loading
+                            )
+                        )
+                    } else if (productListUiState.infoMessage != null) {
                         InfoMessageAndReload(stringResource(id = productListUiState.infoMessage!!)) {
                             productListScreenViewModel.onStart()
                         }
@@ -93,8 +98,8 @@ fun ProductListScreen(productListScreenViewModel: ProductListScreenViewModel = h
                                 Modifier.testTag("productList"),
                                 content = {
 
-                                    items(it,key = {it.id}) { product ->
-                                        ProductGridItem(product = product,onProductClickEvent)
+                                    items(it, key = { it.id }) { product ->
+                                        ProductGridItem(product = product, onProductClickEvent)
                                     }
                                 })
                         }
