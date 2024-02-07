@@ -1,4 +1,4 @@
-# JLP Android Engineer Test
+# Sample Android App
 
 ## Architecture
 
