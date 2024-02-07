@@ -1,6 +1,6 @@
 # Sample Android App
 
-![](https://drive.google.com/file/d/1Poj6D8xNrIIPJU12LCxMOG3wikHIDHzh/view?usp=drivesdk)
+[](https://drive.google.com/file/d/1Poj6D8xNrIIPJU12LCxMOG3wikHIDHzh/view?usp=drivesdk)
 
 
 ## Architecture
