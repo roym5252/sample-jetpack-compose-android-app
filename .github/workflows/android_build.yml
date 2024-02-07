@@ -40,10 +40,10 @@ jobs:
       - name: Install Gradle
         uses: gradle/wrapper-action@v2
 
-  - name: Use secret in workflow
+      - name: Use secret in workflow
         run: |
           echo "${{ secrets.LOCAL_PROPERTIES }}" > local.properties
-          # Now you can use the local.properties file in your subsequent steps
+          # Now you can use the local.properties file in your subsequent steps 
 
   lintDebug:
     runs-on: ubuntu-latest
