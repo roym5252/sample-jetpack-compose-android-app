@@ -1,5 +1,8 @@
 # Sample Android App
 
+![](https://drive.google.com/file/d/1Poj6D8xNrIIPJU12LCxMOG3wikHIDHzh/view?usp=drivesdk)
+
+
 ## Architecture
 
 Modern Android App Architecture is used because it clearly separates the app into three layers: UI, Domain, and Data. This makes it easy to write unit tests for the Domain layer, and to keep all UI elements in the UI layer.
