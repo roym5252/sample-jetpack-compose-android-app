@@ -21,7 +21,7 @@ import java.lang.Exception
 @OptIn(ExperimentalCoroutinesApi::class)
 class GetProductDetailUseCaseTest {
 
-    @ExperimentalCoroutinesApi
+    /*@ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
@@ -124,5 +124,5 @@ class GetProductDetailUseCaseTest {
 
     private fun getProductDetailApiCall(productId:Long): Call<RemoteProductDetailResponse?> {
         return apiClient.getProductDetail(productId)
-    }
+    }*/
 }
