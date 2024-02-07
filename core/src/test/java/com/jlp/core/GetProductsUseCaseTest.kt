@@ -3,7 +3,7 @@ package com.jlp.core
 import com.jlp.core.datasource.remote.APIInterface
 import com.jlp.core.datasource.remote.model.productlist.RemoteProductResponse
 import com.jlp.core.testutil.MainCoroutineRule
-import com.jlp.core.testutil.validProductsJsonResponse
+//import com.jlp.core.testutil.validProductsJsonResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
