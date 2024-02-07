@@ -1,6 +1,6 @@
 # Sample Android App
 
-[] (https://lh3.googleusercontent.com/drive-viewer/AEYmBYT7hvX7B6NAC_FJ_5vg3SM8gsQeDPjNgoV1H6kHjqhCNe_R5DJXS_Q-TDZdBFh_3D6E-3fZcQlcVuowt4k2S9bryINLGA=s1600)
+![](https://lh3.googleusercontent.com/drive-viewer/AEYmBYT7hvX7B6NAC_FJ_5vg3SM8gsQeDPjNgoV1H6kHjqhCNe_R5DJXS_Q-TDZdBFh_3D6E-3fZcQlcVuowt4k2S9bryINLGA=s1600)
 
 
 ## Architecture
