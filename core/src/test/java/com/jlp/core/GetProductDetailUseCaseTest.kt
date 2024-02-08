@@ -3,7 +3,7 @@ package com.jlp.core
 import com.jlp.core.datasource.remote.APIInterface
 import com.jlp.core.datasource.remote.model.productdetail.RemoteProductDetailResponse
 import com.jlp.core.testutil.MainCoroutineRule
-//import com.jlp.core.testutil.validProductDetailJsonResponse
+import com.jlp.core.testutil.validProductDetailJsonResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -21,7 +21,7 @@ import java.lang.Exception
 @OptIn(ExperimentalCoroutinesApi::class)
 class GetProductDetailUseCaseTest {
 
-    /*@ExperimentalCoroutinesApi
+    @ExperimentalCoroutinesApi
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
@@ -124,5 +124,5 @@ class GetProductDetailUseCaseTest {
 
     private fun getProductDetailApiCall(productId:Long): Call<RemoteProductDetailResponse?> {
         return apiClient.getProductDetail(productId)
-    }*/
+    }
 }
