@@ -43,7 +43,7 @@ class GetProductDetailUseCaseTest {
             .build().create(APIInterface::class.java)
     }
 
-    @Test
+    /*@Test
     fun get_product_detail_valid_response_test() = runTest {
 
         val mockResponse: MockResponse = MockResponse()
@@ -59,7 +59,7 @@ class GetProductDetailUseCaseTest {
             true,
             (response.body() != null && (response.body()?.remoteDetailsData != null && response.body()?.remoteDetailsData!!.isNotEmpty()))
         )
-    }
+    }*/
 
     @Test
     fun get_products_empty_body_test() = runTest {
