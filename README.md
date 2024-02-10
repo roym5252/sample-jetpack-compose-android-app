@@ -61,7 +61,7 @@ Link: https://developer.android.com/topic/architecture
 - Macrobenchmark
 
 
-## TDD
+## TDD (Test Driven Development)
 
 TDD approach was consistently employed throughout the app development process. Initially, failing unit tests were crafted, followed by the implementation of basic code to make the tests pass. Subsequently, the code underwent refactoring to adhere to the specified requirements. The Red-Green-Refactor pattern was adhered to as much as possible.
 
@@ -118,21 +118,25 @@ Additional details: https://developer.android.com/topic/performance/benchmarking
 
 ## Continuous Integration
 
-- CI is set up using GitLab's pipeline.
+- CI is set up using Github Actions.
 
-- File containing sensitive information (API key) is added to Gitlab's secure file's section and connected with CI pipeline.
+- File containing sensitive information (API key) is added to Github's secure variable section and connected with Github Actions.
 
 ## Notes
 
 - Mock server data is used.
 
-- Appropriate modifications are done to the UI to make it much for compactable for mobile devices.
-
 - Offline support not included.
 
 - When matched using product ID Some of the product's details are not available in second JSON file. As a result the error screen will be displayed if the product details are missing in the provided mock response.
 
-- Dark mode theme implementation not included. 
+- Dark mode theme implementation not included.
+
+## API key configuration
+
+- Place below line in the local.properties file and replace the API key. The content of the local.properties file is added Github Action's secret section for CI/CD to work properly.
+
+API_KEY=PLACE_API_KEY_HERE
 
 ## Future enhancements
 
@@ -143,3 +147,5 @@ Additional details: https://developer.android.com/topic/performance/benchmarking
 - Data management: Connect the local database to the UI for real-time updates.
 
 - Data security: Enhance data security by employing SQLCipher on top of Room.
+  
+- Performance: Include Baseline profile for faster loading of the app after installation.
